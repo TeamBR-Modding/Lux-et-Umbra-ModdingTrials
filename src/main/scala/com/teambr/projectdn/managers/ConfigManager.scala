@@ -7,9 +7,9 @@ import com.teambr.projectdn.lib.Constants
 import net.minecraftforge.common.config.Configuration
 
 /**
-  * This file was created for SkyWorld
+  * This file was created for ProjectDN
   *
-  * SkyWorld is licensed under the
+  * ProjectDN is licensed under the
   * Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License:
   * http://creativecommons.org/licenses/by-nc-sa/4.0/
   *
