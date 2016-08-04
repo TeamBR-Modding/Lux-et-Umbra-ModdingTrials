@@ -1,6 +1,6 @@
 package com.teambr.projectdn.managers
 
-import com.teambr.projectdn.common.items.{ItemCrystal, ItemCrystalSeed}
+import com.teambr.projectdn.common.items.{ItemCrystal, ItemCrystalSeed, ItemIngot}
 import com.teambr.projectdn.lib.Constants
 import net.minecraft.item.Item
 import net.minecraftforge.fml.common.registry.{GameRegistry, IForgeRegistryEntry}
@@ -21,9 +21,15 @@ object ItemManager {
     val itemCrystal = new ItemCrystal
     val itemCrystalSeed = new ItemCrystalSeed
 
+    val itemIngot = new ItemIngot
+
     def preInit(): Unit = {
-        registerItem(itemCrystal, "itemCrystal")
-        registerItem(itemCrystalSeed, "itemCrystalSeed")
+        //Crystals
+        //registerItem(itemCrystal, "itemCrystal")
+        //registerItem(itemCrystalSeed, "itemCrystalSeed")
+
+        //Ingots
+        registerItem(itemIngot, "itemIngot")
     }
 
     def registerItem(item: Item, name: String, oreDict: String): Item = {

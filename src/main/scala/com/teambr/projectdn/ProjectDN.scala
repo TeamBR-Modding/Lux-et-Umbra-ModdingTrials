@@ -50,13 +50,14 @@ object ProjectDN {
     def preInit(event: FMLPreInitializationEvent) = {
         configLocation = event.getModConfigurationDirectory.getAbsolutePath + File.separator + Constants.MOD_NAME
         ConfigManager.preInit()
-        BlockManager.preInit()
+        //BlockManager.preInit()
         ItemManager.preInit()
     }
 
     @EventHandler
     def init(event: FMLInitializationEvent) = {
         WorldStructure.buildDefaultAlters
+        proxy.init()
     }
 
     @EventHandler

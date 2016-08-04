@@ -14,7 +14,7 @@ class CommonProxy {
 
     def preInit(): Unit = { }
 
-    def Init(): Unit = { }
+    def init(): Unit = { }
 
     def postInit(): Unit = { }
 
