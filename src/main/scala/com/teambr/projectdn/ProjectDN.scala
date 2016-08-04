@@ -30,8 +30,8 @@ object ProjectDN {
 
     final val logger = LogManager.getLogger(Constants.MOD_NAME)
 
-    @SidedProxy(clientSide = "com.teabbr.projectDN.client.ClientProxy",
-        serverSide = "com.teabbr.projectDN.common.CommonProxy")
+    @SidedProxy(clientSide = "com.teambr.projectDN.client.ClientProxy",
+        serverSide = "com.teambr.projectDN.common.CommonProxy")
     var proxy: CommonProxy = null
 
     val tabProjectDN = new CreativeTabs("tabProjectDN") {
