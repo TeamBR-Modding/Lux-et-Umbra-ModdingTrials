@@ -2,14 +2,16 @@ package com.teambr.projectdn
 
 import java.io.File
 
+import com.teambr.projectdn.commands.DebugAlter
 import com.teambr.projectdn.common.CommonProxy
 import com.teambr.projectdn.lib.Constants
+import com.teambr.projectdn.collections.WorldStructure
 import com.teambr.projectdn.managers.{BlockManager, ConfigManager, ItemManager}
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraftforge.fml.common.Mod.EventHandler
-import net.minecraftforge.fml.common.event.{FMLInitializationEvent, FMLPostInitializationEvent, FMLPreInitializationEvent}
+import net.minecraftforge.fml.common.event.{FMLInitializationEvent, FMLPostInitializationEvent, FMLPreInitializationEvent, FMLServerStartingEvent}
 import net.minecraftforge.fml.common.{Mod, SidedProxy}
 import org.apache.logging.log4j.LogManager
 
@@ -54,11 +56,15 @@ object ProjectDN {
 
     @EventHandler
     def init(event: FMLInitializationEvent) = {
-
+        WorldStructure.buildDefaultAlters
     }
 
     @EventHandler
     def postInit(event: FMLPostInitializationEvent) = {
 
+    }
+
+    @EventHandler def serverLoad(event: FMLServerStartingEvent) {
+        event.registerServerCommand(new DebugAlter)
     }
 }
