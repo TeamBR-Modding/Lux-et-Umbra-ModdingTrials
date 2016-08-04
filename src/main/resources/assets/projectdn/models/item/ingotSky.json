@@ -1,7 +1,7 @@
 {
   "parent": "builtin/generated",
   "textures": {
-    "layer0": "projectdn:items/itemIngot_0"
+    "layer0": "projectdn:items/ingotSky"
   },
   "display": {
     "thirdperson": {
