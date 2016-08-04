@@ -2,7 +2,7 @@ package com.teambr.projectdn
 
 import java.io.File
 
-import com.teambr.bookshelf.common.CommonProxy
+import com.teambr.projectdn.common.CommonProxy
 import com.teambr.projectdn.lib.Constants
 import com.teambr.projectdn.managers.{BlockManager, ConfigManager, ItemManager}
 import net.minecraft.creativetab.CreativeTabs
@@ -23,16 +23,22 @@ import org.apache.logging.log4j.LogManager
   * @author Dyonovan
   * @since 8/3/2016
   */
-@Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.VERSION, dependencies = Constants.DEPENDENCIES, modLanguage = "scala", updateJSON = Constants.UPDATE_JSON)
+@Mod(
+    modid = Constants.MOD_ID,
+    name = Constants.MOD_NAME,
+    version = Constants.VERSION,
+    dependencies = Constants.DEPENDENCIES,
+    modLanguage = "scala",
+    updateJSON = Constants.UPDATE_JSON)
 object ProjectDN {
 
     var configLocation: String = ""
 
     final val logger = LogManager.getLogger(Constants.MOD_NAME)
 
-    @SidedProxy(clientSide = "com.teambr.projectDN.client.ClientProxy",
-        serverSide = "com.teambr.projectDN.common.CommonProxy")
-    var proxy: CommonProxy = null
+    @SidedProxy(clientSide = "com.teambr.projectdn.client.ClientProxy",
+        serverSide = "com.teambr.projectdn.common.CommonProxy")
+    var proxy : CommonProxy = null
 
     val tabProjectDN = new CreativeTabs("tabProjectDN") {
         override def getTabIconItem: Item = Items.DIAMOND
