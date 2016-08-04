@@ -1,5 +1,12 @@
 package com.teambr.projectdn.managers
 
+import com.teambr.projectdn.common.blocks.BlockCrystal
+import com.teambr.projectdn.lib.Constants
+import net.minecraft.block.Block
+import net.minecraft.tileentity.TileEntity
+import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraftforge.oredict.OreDictionary
+
 /**
   * This file was created for SkyWorld
   *
@@ -12,7 +19,25 @@ package com.teambr.projectdn.managers
   */
 object BlockManager {
 
-    def preInit(): Unit = {
+    val blockCrystal = new BlockCrystal
 
+    def preInit(): Unit = {
+        registerBlock(blockCrystal, "blockCrystal", null)
+    }
+
+    def registerBlock(block: Block, name: String, te: Class[_ <: TileEntity], oreDict:String): Block = {
+        block.setRegistryName(Constants.MOD_ID, name)
+        GameRegistry.register(block)
+        if (te != null) {
+            GameRegistry.registerTileEntity(te, name)
+        }
+        if (oreDict != null) {
+            OreDictionary.registerOre(oreDict, block)
+        }
+        block
+    }
+
+    def registerBlock(block: Block, name: String, te: Class[_ <: TileEntity]): Block = {
+        registerBlock(block, name, te, null)
     }
 }

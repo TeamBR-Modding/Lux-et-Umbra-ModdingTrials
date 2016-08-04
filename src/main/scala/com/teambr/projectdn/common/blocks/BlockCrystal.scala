@@ -1,13 +1,18 @@
 package com.teambr.projectdn.common.blocks
 
+import java.util
 import java.util.Random
 
-import com.teambr.projectdn.common.tiles.TileCrystal
-import net.minecraft.block.IGrowable
-import net.minecraft.block.material.Material
+import com.teambr.bookshelf.helper.LogHelper
+import com.teambr.projectdn.lib.Constants
+import com.teambr.projectdn.managers.ItemManager
+import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.IBlockState
+import net.minecraft.block.{BlockCrops, IGrowable, SoundType}
+import net.minecraft.init.Blocks
+import net.minecraft.item.{Item, ItemStack}
 import net.minecraft.util.math.BlockPos
-import net.minecraft.world.World
+import net.minecraft.world.{IBlockAccess, World}
 
 /**
   * This file was created for SkyWorld
@@ -19,11 +24,33 @@ import net.minecraft.world.World
   * @author Dyonovan
   * @since 8/4/16
   */
-class BlockCrystal extends BaseBlock(Material.PLANTS, "blockCrystal", classOf[TileCrystal]) with IGrowable{
+class BlockCrystal extends BlockCrops with IGrowable {
+    val AGE: PropertyInteger = PropertyInteger.create("age", 0, 7)
 
-    override def canGrow(worldIn: World, pos: BlockPos, state: IBlockState, isClient: Boolean): Boolean = ???
+    setHardness(2.0f)
+    setSoundType(SoundType.GLASS)
+    setUnlocalizedName(Constants.MOD_ID + ":blockCrystal")
 
-    override def grow(worldIn: World, rand: Random, pos: BlockPos, state: IBlockState): Unit = ???
+    override def getMaxAge: Int = 7
 
-    override def canUseBonemeal(worldIn: World, rand: Random, pos: BlockPos, state: IBlockState): Boolean = false
+    override def canSustainBush(state: IBlockState): Boolean = state.getBlock == Blocks.STONE //TODO maybe use our own type of block depending on type of crystal
+
+    override def getCrop: Item = ItemManager.itemCrystal
+
+    override def getSeed: Item = ItemManager.itemCrystalSeed
+
+    override def canUseBonemeal(worldIn: World, rand: Random, pos: BlockPos, state: IBlockState): Boolean = true //TODO reset after testing
+
+    override def getDrops(world: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int): util.List[ItemStack] = {
+        val age = getAge(state)
+        val ret: util.List[ItemStack] = new util.ArrayList[ItemStack]
+        if (age >= getMaxAge) {
+            ret.add(new ItemStack(getCrop)) //return actual crop
+        } else {
+            val rand = new Random().nextInt(10)
+            if (rand >= 8)
+                ret.add(new ItemStack(getSeed)) //20% chance to get diamond back
+        }
+        ret
+    }
 }
