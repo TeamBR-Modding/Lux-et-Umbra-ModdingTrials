@@ -1,6 +1,7 @@
 package com.teambr.projectdn.client.renderers.tiles
 
 import com.teambr.projectdn.common.tiles.TileDayAltar
+import net.minecraft.block.Block
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
 import net.minecraft.client.renderer.{GlStateManager, RenderHelper}
@@ -37,8 +38,11 @@ class AltarEntityRenderer[T <: TileDayAltar] extends TileEntitySpecialRenderer[T
         renderManager.setRenderShadow(false)
         GlStateManager.pushAttrib()
         GlStateManager.rotate(te.rotation + partialTicks, 0, 1, 0)
+        GlStateManager.scale(1.3, 1.3, 1.3)
 
-        renderManager.doRenderEntity(item, 0.0, 0.0, 0.0, 0.0F, 0, true)
+        val dropHeight = if(Block.getBlockFromItem(te.getStackInSlot(0).getItem) != null) -0.05 else -0.18
+
+        renderManager.doRenderEntity(item, 0.0, dropHeight + te.bounce, 0.0, 0.0F, 0, true)
 
         GlStateManager.popAttrib()
         GlStateManager.enableLighting()

@@ -36,6 +36,7 @@ class BlockDayAltar extends BaseBlock(Material.IRON, "blockDayAltar", classOf[Ti
             item.stackSize = 1
             if (altar.insertItem(0, item, simulate = false) == null)
                 heldItem.stackSize -= 1
+            world.markBlockRangeForRenderUpdate(pos, pos)
         }
         true
     }
