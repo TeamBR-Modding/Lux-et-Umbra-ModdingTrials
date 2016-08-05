@@ -7,6 +7,7 @@ import com.teambr.projectdn.commands.DebugAlter
 import com.teambr.projectdn.common.CommonProxy
 import com.teambr.projectdn.lib.Constants
 import com.teambr.projectdn.managers.{BlockManager, ConfigManager, ItemManager}
+import com.teambr.projectdn.registries.AltarRecipes
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Items
 import net.minecraft.item.Item
@@ -40,7 +41,7 @@ object ProjectDN {
 
     @SidedProxy(clientSide = "com.teambr.projectdn.client.ClientProxy",
         serverSide = "com.teambr.projectdn.common.CommonProxy")
-    var proxy : CommonProxy = null
+    var proxy : CommonProxy = _
 
     val tabProjectDN = new CreativeTabs("tabProjectDN") {
         override def getTabIconItem: Item = Items.DIAMOND //TODO change
@@ -58,6 +59,7 @@ object ProjectDN {
     def init(event: FMLInitializationEvent) = {
         WorldStructure.buildDefaultAlters
         proxy.init()
+        AltarRecipes.init()
     }
 
     @EventHandler

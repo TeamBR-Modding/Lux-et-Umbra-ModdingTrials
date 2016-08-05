@@ -21,13 +21,15 @@ class AltarEntityRenderer[T <: TileAltar] extends TileEntitySpecialRenderer[T] {
 
     override def renderTileEntityAt(te: T, x: Double, y: Double, z: Double, partialTicks: Float, destroyStage: Int): Unit = {
 
-        if (te.getStackInSlot(0) == null) return
-        val item = new EntityItem(getWorld, 0.0, 0.0, 0.0, te.getStackInSlot(0))
+        //if (te.getStackInSlot(0) == null) return
+        if (te.entity == null) return
+        val item = te.entity
+        /*val item = new EntityItem(getWorld, 0.0, 0.0, 0.0, te.getStackInSlot(0))
         item.motionX = 0
         item.motionY = 0
         item.motionZ = 0
         item.hoverStart = 0
-        item.rotationYaw = 0
+        item.rotationYaw = 0*/
 
         GlStateManager.pushMatrix()
         GlStateManager.translate(x + 0.5, y + 1.0D, z + 0.5)

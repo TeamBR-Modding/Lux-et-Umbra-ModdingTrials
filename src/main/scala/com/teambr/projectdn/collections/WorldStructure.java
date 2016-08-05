@@ -25,6 +25,7 @@ import net.minecraft.world.World;
 public class WorldStructure {
 
     public static WorldStructure DAY_TIER_1;
+    public static WorldStructure NIGHT_TIER_1;
 
     public enum EnumAlterType {
         DAY_TIER_1,
@@ -63,6 +64,12 @@ public class WorldStructure {
                         Blocks.STONE_BRICK_STAIRS.getDefaultState(),
                         Blocks.STONEBRICK.getDefaultState(),
                         Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.CHISELED));
+        NIGHT_TIER_1 =
+                WorldStructure.buildAlter(
+                        Blocks.NETHER_BRICK.getDefaultState(),
+                        Blocks.NETHER_BRICK_STAIRS.getDefaultState(),
+                        Blocks.NETHER_BRICK.getDefaultState(),
+                        Blocks.NETHER_BRICK_FENCE.getDefaultState());
     }
 
 
@@ -185,6 +192,9 @@ public class WorldStructure {
         if(stateUnderAlter == DAY_TIER_1.structure[6][0][6]) {
             masterList = DAY_TIER_1;
             checking = EnumAlterType.DAY_TIER_1;
+        } else if (stateUnderAlter == NIGHT_TIER_1.structure[6][0][6]) {
+            masterList = NIGHT_TIER_1;
+            checking = EnumAlterType.NIGHT_TIER_1;
         }
 
         // Check against master
