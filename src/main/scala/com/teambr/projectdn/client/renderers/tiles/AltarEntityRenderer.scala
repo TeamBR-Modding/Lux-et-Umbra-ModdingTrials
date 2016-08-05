@@ -1,6 +1,6 @@
 package com.teambr.projectdn.client.renderers.tiles
 
-import com.teambr.projectdn.common.tiles.TileDayAltar
+import com.teambr.projectdn.common.tiles.TileAltar
 import net.minecraft.block.Block
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
@@ -17,7 +17,7 @@ import net.minecraft.entity.item.EntityItem
   * @author Dyonovan
   * @since 8/4/2016
   */
-class AltarEntityRenderer[T <: TileDayAltar] extends TileEntitySpecialRenderer[T] {
+class AltarEntityRenderer[T <: TileAltar] extends TileEntitySpecialRenderer[T] {
 
     override def renderTileEntityAt(te: T, x: Double, y: Double, z: Double, partialTicks: Float, destroyStage: Int): Unit = {
 

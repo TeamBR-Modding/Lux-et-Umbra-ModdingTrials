@@ -1,8 +1,7 @@
 package com.teambr.projectdn.common.tiles
 
-import com.teambr.bookshelf.common.tiles.traits.{Inventory, Syncable}
+import com.teambr.bookshelf.common.tiles.traits.{Inventory, UpdatingTile}
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.tileentity.TileEntity
 
 /**
   * This file was created for ProjectDN
@@ -14,7 +13,7 @@ import net.minecraft.tileentity.TileEntity
   * @author Dyonovan
   * @since 8/4/16
   */
-class TileDayAltar extends Inventory with Syncable {
+class TileAltar extends UpdatingTile with Inventory {
 
     var rotation = 0
     var bounce = 0F
@@ -38,10 +37,6 @@ class TileDayAltar extends Inventory with Syncable {
             bounceDir = - bounceDir
         bounce += bounceDir
     }
-
-    override def setVariable(id: Int, value: Double): Unit = { }
-
-    override def getVariable(id: Int): Double = { 0.0F }
 
     override def initialSize: Int = 1
 

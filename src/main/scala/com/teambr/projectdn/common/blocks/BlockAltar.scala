@@ -1,7 +1,7 @@
 package com.teambr.projectdn.common.blocks
 
 import com.teambr.bookshelf.common.blocks.traits.DropsItems
-import com.teambr.projectdn.common.tiles.TileDayAltar
+import com.teambr.projectdn.common.tiles.TileAltar
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
@@ -21,18 +21,18 @@ import net.minecraftforge.fml.relauncher.{Side, SideOnly}
   * @author Dyonovan
   * @since 8/4/16
   */
-class BlockDayAltar extends BaseBlock(Material.IRON, "blockDayAltar", classOf[TileDayAltar]) with DropsItems {
+class BlockAltar extends BaseBlock(Material.IRON, "blockAltar", classOf[TileAltar]) with DropsItems {
 
     override def onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer,
                                   hand: EnumHand, heldItem: ItemStack, side: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean = {
 
         val heldItem = player.getHeldItem(hand)
+        val altar = world.getTileEntity(pos).asInstanceOf[TileAltar]
 
-        if (heldItem == null || !world.getTileEntity(pos).isInstanceOf[TileDayAltar]) return true
-
-        val altar = world.getTileEntity(pos).asInstanceOf[TileDayAltar]
-
-        if (altar.getStackInSlot(0) == null) {
+        if (heldItem == null && altar.getStackInSlot(0) != null) {
+            player.inventory.addItemStackToInventory(altar.getStackInSlot(0).copy)
+            altar.setStackInSlot(0, null)
+        } else if (altar.getStackInSlot(0) == null && heldItem != null) {
             val item = heldItem.copy()
             item.stackSize = 1
             if (altar.insertItem(0, item, simulate = false) == null)

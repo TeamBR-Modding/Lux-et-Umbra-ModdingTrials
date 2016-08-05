@@ -2,7 +2,7 @@ package com.teambr.projectdn.client
 
 import com.teambr.projectdn.client.renderers.tiles.AltarEntityRenderer
 import com.teambr.projectdn.common.CommonProxy
-import com.teambr.projectdn.common.tiles.TileDayAltar
+import com.teambr.projectdn.common.tiles.TileAltar
 import com.teambr.projectdn.lib.Constants
 import net.minecraftforge.client.model.obj.OBJLoader
 import net.minecraftforge.fml.client.registry.ClientRegistry
@@ -27,7 +27,7 @@ class ClientProxy extends CommonProxy {
     override def init(): Unit = {
         ItemRenderManager.registerItemRenderer()
 
-        ClientRegistry.bindTileEntitySpecialRenderer(classOf[TileDayAltar], new AltarEntityRenderer[TileDayAltar])
+        ClientRegistry.bindTileEntitySpecialRenderer(classOf[TileAltar], new AltarEntityRenderer[TileAltar])
     }
 
     override def postInit(): Unit = { }

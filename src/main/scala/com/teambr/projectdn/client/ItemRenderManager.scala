@@ -24,7 +24,7 @@ object ItemRenderManager {
     def registerItemRenderer(): Unit = {
         registerItem(ItemManager.ingotSky)
 
-        registerBlockModel(BlockManager.blockDayAltar, "blockAlter", "normal")
+        registerBlockModel(BlockManager.blockAltar, "blockAlter", "normal")
     }
 
     def registerItem(item: Item): Unit = {
