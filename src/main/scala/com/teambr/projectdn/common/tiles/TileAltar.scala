@@ -97,16 +97,16 @@ class TileAltar extends UpdatingTile with Inventory {
     override def readFromNBT(tag: NBTTagCompound): Unit = {
         super[TileEntity].readFromNBT(tag)
         super[Inventory].readFromNBT(tag)
-        isWorking = tag.getBoolean("IsWorking")
-        chargeCount = tag.getFloat("ChannelCount")
+        /*isWorking = tag.getBoolean("IsWorking")
+        chargeCount = tag.getFloat("ChannelCount")*/
         onInventoryChanged(0)
     }
 
     override def writeToNBT(tag: NBTTagCompound): NBTTagCompound = {
         super[TileEntity].writeToNBT(tag)
         super[Inventory].writeToNBT(tag)
-        tag.setBoolean("IsWorking", isWorking)
-        tag.setFloat("ChannelCount", chargeCount)
+        /*tag.setBoolean("IsWorking", isWorking)
+        tag.setFloat("ChannelCount", chargeCount)*/
         tag
     }
 }
