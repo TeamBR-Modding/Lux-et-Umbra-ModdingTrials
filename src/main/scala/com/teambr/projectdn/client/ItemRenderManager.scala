@@ -1,7 +1,7 @@
 package com.teambr.projectdn.client
 
 import com.teambr.projectdn.lib.Constants
-import com.teambr.projectdn.managers.ItemManager
+import com.teambr.projectdn.managers.{BlockManager, ItemManager}
 import net.minecraft.block.Block
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
@@ -23,8 +23,6 @@ object ItemRenderManager {
 
     def registerItemRenderer(): Unit = {
         registerItem(ItemManager.ingotSky)
-
-
     }
 
     def registerItem(item: Item): Unit = {
