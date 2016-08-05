@@ -11,6 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 /**
@@ -26,7 +27,7 @@ import net.minecraft.world.World;
 public class DebugAlter extends CommandBase {
     @Override
     public String getCommandName() {
-        return "buildAlter";
+        return "debugAlter";
     }
 
     @Override
@@ -41,15 +42,7 @@ public class DebugAlter extends CommandBase {
 
         BlockPos center = player.getPosition();
 
-        WorldStructure alter = WorldStructure.buildAlter(Blocks.STONEBRICK.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONEBRICK.getDefaultState(), Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.CHISELED));
-        for(int x = 0; x < 13; x++) {
-            for(int y = 0; y < 5; y++) {
-                for(int z = 0; z < 13; z++) {
-                    if(alter.structure[x][y][z] != null)
-                        world.setBlockState(new BlockPos(center.getX() + x, center.getY() + y, center.getZ() + z), alter.structure[x][y][z]);
-                }
-            }
-        }
+        player.addChatMessage(new TextComponentString(WorldStructure.getAlterType(world, center).toString()));
     }
 
     @Override

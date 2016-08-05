@@ -15,17 +15,17 @@ import net.minecraft.nbt.NBTTagCompound
   */
 class TileDayAltar extends Syncable with Inventory {
 
-    var rotation = 0.0F
+    var rotation = 0
 
     override def onServerTick(): Unit = {
 
     }
 
     override def onClientTick(): Unit = {
-        if (rotation >= 1.0F)
-            rotation = 0.0F
+        if (rotation >= 360)
+            rotation = 0
         else
-            rotation += 0.001F
+            rotation += 1
     }
 
     override def setVariable(id: Int, value: Double): Unit = { }

@@ -1,8 +1,14 @@
 package com.teambr.projectdn.collections;
 
+import net.minecraft.block.BlockStairs;
 import net.minecraft.block.BlockStoneBrick;
+import net.minecraft.block.state.BlockStateBase;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 /**
  * This file was created for ProjectDN
@@ -19,6 +25,16 @@ import net.minecraft.init.Blocks;
 public class WorldStructure {
 
     public static WorldStructure DAY_TIER_1;
+
+    public enum EnumAlterType {
+        DAY_TIER_1,
+        DAY_TIER_2,
+        DAY_TIER_3,
+        NIGHT_TIER_1,
+        NIGHT_TIER_2,
+        NIGHT_TIER_3,
+        INVALID
+    }
 
     public IBlockState[][][] structure;
 
@@ -156,5 +172,50 @@ public class WorldStructure {
         }
 
         return alter;
+    }
+
+    public static EnumAlterType getAlterType(World world, BlockPos alterPos) {
+
+        EnumAlterType checking = EnumAlterType.INVALID;
+        WorldStructure masterList = null;
+        // Check under, quick way to test if moving on plus what type to check
+        IBlockState stateUnderAlter = world.getBlockState(alterPos.offset(EnumFacing.DOWN));
+
+        // Day Tier 1
+        if(stateUnderAlter == DAY_TIER_1.structure[6][0][6]) {
+            masterList = DAY_TIER_1;
+            checking = EnumAlterType.DAY_TIER_1;
+        }
+
+        // Check against master
+        if(masterList != null) {
+            for(int x = -6; x <= 6; x++) {
+                for(int y = -1; y <= 3; y++) {
+                    for(int z = -6; z <= 6; z++) {
+                        IBlockState localState = masterList.structure[x + 6][y + 1][z + 6];
+                        IBlockState worldState = world.getBlockState(new BlockPos(alterPos.getX() + x, alterPos.getY() + y, alterPos.getZ() + z));
+
+                        // Something in master list
+                        if(localState != null) {
+
+                            // Stairs
+                            if(localState.getBlock() instanceof BlockStairs) {
+                                if(localState.getBlock() != worldState.getBlock()) {
+                                    checking = EnumAlterType.INVALID;
+                                    break;
+                                }
+                            } else {
+                                if(localState != worldState) {
+                                    checking = EnumAlterType.INVALID;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return checking;
     }
 }
