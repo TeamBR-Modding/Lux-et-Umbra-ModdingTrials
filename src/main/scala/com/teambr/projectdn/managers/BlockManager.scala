@@ -4,6 +4,7 @@ import com.teambr.projectdn.common.blocks.{BlockCrystal, BlockDayAltar}
 import com.teambr.projectdn.common.tiles.TileDayAltar
 import com.teambr.projectdn.lib.Constants
 import net.minecraft.block.Block
+import net.minecraft.item.ItemBlock
 import net.minecraft.tileentity.TileEntity
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.OreDictionary
@@ -21,16 +22,19 @@ import net.minecraftforge.oredict.OreDictionary
 object BlockManager {
 
     val blockCrystal = new BlockCrystal
-    val blockDayAltar = new BlockDayAltar
+    lazy val blockDayAltar = new BlockDayAltar
 
     def preInit(): Unit = {
         //registerBlock(blockCrystal, "blockCrystal", null)
         registerBlock(blockDayAltar, "blockDayAltar", classOf[TileDayAltar])
     }
 
-    def registerBlock(block: Block, name: String, te: Class[_ <: TileEntity], oreDict:String): Block = {
+    def registerBlock(block: Block, name: String, te: Class[_ <: TileEntity], oreDict : String): Block = {
         block.setRegistryName(Constants.MOD_ID, name)
+        val itemBlock = new ItemBlock(block)
+        itemBlock.setRegistryName(Constants.MOD_ID, name)
         GameRegistry.register(block)
+        GameRegistry.register(itemBlock)
         if (te != null) {
             GameRegistry.registerTileEntity(te, name)
         }

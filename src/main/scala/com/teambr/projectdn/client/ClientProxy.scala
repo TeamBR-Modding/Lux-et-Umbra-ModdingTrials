@@ -1,6 +1,11 @@
 package com.teambr.projectdn.client
 
+import com.teambr.projectdn.client.renderers.tiles.AltarEntityRenderer
 import com.teambr.projectdn.common.CommonProxy
+import com.teambr.projectdn.common.tiles.TileDayAltar
+import com.teambr.projectdn.lib.Constants
+import net.minecraftforge.client.model.obj.OBJLoader
+import net.minecraftforge.fml.client.registry.ClientRegistry
 
 /**
   * This file was created for ProjectDN

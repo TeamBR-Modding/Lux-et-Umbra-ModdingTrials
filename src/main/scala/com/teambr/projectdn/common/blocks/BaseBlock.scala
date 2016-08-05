@@ -19,7 +19,7 @@ import net.minecraft.world.World
   */
 class BaseBlock(material: Material, name: String, te: Class[_ <: TileEntity]) extends BlockContainer(material) {
 
-    setUnlocalizedName(Constants.MOD_ID + name)
+    setUnlocalizedName(Constants.MOD_ID + ":" + name)
     setCreativeTab(ProjectDN.tabProjectDN)
     setHardness(getHardness)
 

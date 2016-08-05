@@ -23,6 +23,8 @@ object ItemRenderManager {
 
     def registerItemRenderer(): Unit = {
         registerItem(ItemManager.ingotSky)
+
+        registerBlockModel(BlockManager.blockDayAltar, "blockAlter", "normal")
     }
 
     def registerItem(item: Item): Unit = {
@@ -41,5 +43,4 @@ object ItemRenderManager {
         ModelLoader.setCustomModelResourceLocation(item,
             meta, new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, name), variants))
     }
-
 }
