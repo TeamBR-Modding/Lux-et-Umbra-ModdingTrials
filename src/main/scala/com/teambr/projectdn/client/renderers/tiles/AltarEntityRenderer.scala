@@ -34,7 +34,7 @@ class AltarEntityRenderer[T <: TileDayAltar] extends TileEntitySpecialRenderer[T
 
         renderManager.doRenderEntity(item, 0.0, 0.0, 0.0, 0.0F, partialTicks, true)
 
-        GlStateManager.popMatrix()
+        GlStateManager.popAttrib()
         GlStateManager.enableLighting()
         renderManager.setRenderShadow(true)
         GlStateManager.popMatrix()
