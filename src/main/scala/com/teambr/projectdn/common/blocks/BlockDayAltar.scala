@@ -1,5 +1,6 @@
 package com.teambr.projectdn.common.blocks
 
+import com.teambr.bookshelf.common.blocks.traits.DropsItems
 import com.teambr.projectdn.common.tiles.TileDayAltar
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
@@ -20,7 +21,7 @@ import net.minecraftforge.fml.relauncher.{Side, SideOnly}
   * @author Dyonovan
   * @since 8/4/16
   */
-class BlockDayAltar extends BaseBlock(Material.IRON, "blockDayAltar", classOf[TileDayAltar]) {
+class BlockDayAltar extends BaseBlock(Material.IRON, "blockDayAltar", classOf[TileDayAltar]) with DropsItems {
 
     override def onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer,
                                   hand: EnumHand, heldItem: ItemStack, side: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean = {

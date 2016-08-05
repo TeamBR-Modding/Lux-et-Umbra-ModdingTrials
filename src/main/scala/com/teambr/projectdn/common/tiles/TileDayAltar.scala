@@ -2,6 +2,7 @@ package com.teambr.projectdn.common.tiles
 
 import com.teambr.bookshelf.common.tiles.traits.{Inventory, Syncable}
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.tileentity.TileEntity
 
 /**
   * This file was created for ProjectDN
@@ -13,7 +14,7 @@ import net.minecraft.nbt.NBTTagCompound
   * @author Dyonovan
   * @since 8/4/16
   */
-class TileDayAltar extends Syncable with Inventory {
+class TileDayAltar extends Inventory with Syncable {
 
     var rotation = 0
     var bounce = 0F
@@ -45,10 +46,13 @@ class TileDayAltar extends Syncable with Inventory {
     override def initialSize: Int = 1
 
     override def readFromNBT(tag: NBTTagCompound): Unit = {
+        super[TileEntity].readFromNBT(tag)
         super[Inventory].readFromNBT(tag)
     }
 
     override def writeToNBT(tag: NBTTagCompound): NBTTagCompound = {
+        super[TileEntity].writeToNBT(tag)
         super[Inventory].writeToNBT(tag)
+        tag
     }
 }
