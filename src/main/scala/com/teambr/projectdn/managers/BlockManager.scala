@@ -1,6 +1,7 @@
 package com.teambr.projectdn.managers
 
-import com.teambr.projectdn.common.blocks.BlockCrystal
+import com.teambr.projectdn.common.blocks.{BlockCrystal, BlockDayAltar}
+import com.teambr.projectdn.common.tiles.TileDayAltar
 import com.teambr.projectdn.lib.Constants
 import net.minecraft.block.Block
 import net.minecraft.tileentity.TileEntity
@@ -20,9 +21,11 @@ import net.minecraftforge.oredict.OreDictionary
 object BlockManager {
 
     val blockCrystal = new BlockCrystal
+    val blockDayAltar = new BlockDayAltar
 
     def preInit(): Unit = {
-        registerBlock(blockCrystal, "blockCrystal", null)
+        //registerBlock(blockCrystal, "blockCrystal", null)
+        registerBlock(blockDayAltar, "blockDayAltar", classOf[TileDayAltar])
     }
 
     def registerBlock(block: Block, name: String, te: Class[_ <: TileEntity], oreDict:String): Block = {

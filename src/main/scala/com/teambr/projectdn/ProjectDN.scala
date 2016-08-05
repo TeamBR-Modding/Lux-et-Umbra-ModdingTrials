@@ -2,10 +2,10 @@ package com.teambr.projectdn
 
 import java.io.File
 
+import com.teambr.projectdn.collections.WorldStructure
 import com.teambr.projectdn.commands.DebugAlter
 import com.teambr.projectdn.common.CommonProxy
 import com.teambr.projectdn.lib.Constants
-import com.teambr.projectdn.collections.WorldStructure
 import com.teambr.projectdn.managers.{BlockManager, ConfigManager, ItemManager}
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Items
@@ -43,7 +43,7 @@ object ProjectDN {
     var proxy : CommonProxy = null
 
     val tabProjectDN = new CreativeTabs("tabProjectDN") {
-        override def getTabIconItem: Item = Items.DIAMOND
+        override def getTabIconItem: Item = Items.DIAMOND //TODO change
     }
 
     @EventHandler
