@@ -1,6 +1,8 @@
 package com.teambr.projectdn.client
 
 import com.teambr.projectdn.common.CommonProxy
+import com.teambr.projectdn.lib.Constants
+import net.minecraftforge.client.model.obj.OBJLoader
 
 /**
   * This file was created for ProjectDN
@@ -14,7 +16,10 @@ import com.teambr.projectdn.common.CommonProxy
   */
 class ClientProxy extends CommonProxy {
 
-    override def preInit(): Unit = { }
+    override def preInit(): Unit = {
+        // Add OBJ Domain
+        OBJLoader.INSTANCE.addDomain(Constants.MOD_ID)
+    }
 
     override def init(): Unit = {
         ItemRenderManager.registerItemRenderer()
