@@ -1,9 +1,6 @@
 package com.teambr.projectdn.client
 
-import com.teambr.projectdn.client.renderers.tiles.AltarEntityRenderer
 import com.teambr.projectdn.common.CommonProxy
-import com.teambr.projectdn.common.tiles.TileDayAltar
-import net.minecraftforge.fml.client.registry.ClientRegistry
 
 /**
   * This file was created for ProjectDN
@@ -17,7 +14,10 @@ import net.minecraftforge.fml.client.registry.ClientRegistry
   */
 class ClientProxy extends CommonProxy {
 
-    override def preInit(): Unit = { }
+    override def preInit(): Unit = {
+        // Add OBJ Domain
+        OBJLoader.INSTANCE.addDomain(Constants.MOD_ID)
+    }
 
     override def init(): Unit = {
         ItemRenderManager.registerItemRenderer()

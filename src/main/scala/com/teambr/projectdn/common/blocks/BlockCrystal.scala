@@ -3,16 +3,20 @@ package com.teambr.projectdn.common.blocks
 import java.util
 import java.util.Random
 
+import com.google.common.collect.Lists
 import com.teambr.bookshelf.helper.LogHelper
 import com.teambr.projectdn.lib.Constants
 import com.teambr.projectdn.managers.ItemManager
-import net.minecraft.block.properties.PropertyInteger
-import net.minecraft.block.state.IBlockState
+import net.minecraft.block.properties.{IProperty, PropertyInteger}
+import net.minecraft.block.state.{BlockStateContainer, IBlockState}
 import net.minecraft.block.{BlockCrops, IGrowable, SoundType}
 import net.minecraft.init.Blocks
 import net.minecraft.item.{Item, ItemStack}
+import net.minecraft.util.EnumBlockRenderType
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.{IBlockAccess, World}
+import net.minecraftforge.client.model.obj.OBJModel
+import net.minecraftforge.common.property.{ExtendedBlockState, IExtendedBlockState, IUnlistedProperty}
 
 /**
   * This file was created for ProjectDN
