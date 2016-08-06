@@ -9,6 +9,7 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 
 import java.util.Collections;
 import java.util.List;
@@ -49,6 +50,9 @@ public class SetSpellLevel extends CommandBase {
             player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).setSpellLevel(currentLevel - Integer.parseInt(args[2]));
         else
             throw new WrongUsageException("projectdn:commands.setspelllevel.usage");
+
+        sender.addChatMessage(new TextComponentString(args[0] + "'s " + I18n.format("projectdn:commands.setspelllevel.done") + " "
+                + player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).getSpellLevel()));
 
     }
 

@@ -43,7 +43,10 @@ object AltarRecipes {
                     case EnumAlterType.DAY =>
                         if (enumAlterType == EnumAlterType.DAY) return recipe
                     case EnumAlterType.NEUTRAL =>
-                        if (enumAlterType == EnumAlterType.NEUTRAL) return recipe
+                        if (enumAlterType == EnumAlterType.NEUTRAL ||
+                                (enumAlterType == EnumAlterType.DAY && recipe.getAltarSubType == EnumAlterSubType.DAY ) ||
+                                (enumAlterType == EnumAlterType.NIGHT && recipe.getAltarSubType == EnumAlterSubType.NIGHT))
+                            return recipe
                     case EnumAlterType.NIGHT =>
                         if (enumAlterType == EnumAlterType.NIGHT) return recipe
                     case _ =>

@@ -1,0 +1,15 @@
+# Creative Tab
+itemGroup.tabProjectDN=Project DN
+
+# Blocks
+tile.projectdn:blockAltar.name=Altar
+
+# Items
+item.projectdn:spellLevelBook.name=Spell Level Book
+
+# Commands
+projectdn:commands.setspelllevel.usage=setSpellLevel <Player> Add/Subtract <Amount>
+projectdn:commands.setspelllevel.done=spell level is now
+
+# Misc
+projectdn:itemSpellLevel:spellLevel=Your current spell level is

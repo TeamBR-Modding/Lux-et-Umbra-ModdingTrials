@@ -22,7 +22,7 @@ import net.minecraftforge.client.model.ModelLoader
 object ItemRenderManager {
 
     def registerItemRenderers(): Unit = {
-        registerItem(ItemManager.ingotSky)
+        registerItem(ItemManager.spellLevelBook)
     }
 
     def registerItem(item: Item): Unit = {

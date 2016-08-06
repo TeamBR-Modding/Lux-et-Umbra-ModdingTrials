@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "projectdn:items/ingotSky"
+    "layer0": "projectdn:items/book_SpellCheck"
   },
   "display": {
     "thirdperson": {

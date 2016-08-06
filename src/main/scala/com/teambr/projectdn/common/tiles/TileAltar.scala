@@ -28,6 +28,7 @@ class TileAltar extends UpdatingTile with Inventory {
     var entity: EntityItem = _
     var recipe: AltarRecipe = _
     var altarSubType: EnumAlterSubType = _
+    var altarType:EnumAlterType = _
 
     var rotation = 0
     var bounce = 0F
@@ -39,10 +40,29 @@ class TileAltar extends UpdatingTile with Inventory {
             if (recipe != null) {
                 isWorking = true
                 altarSubType = recipe.getAltarSubType
+                altarType = WorldStructure.getAlterType(worldObj, getPos)
             }
         } else if (isWorking) {
             if (chargeCount < recipe.getRequiredCharge) { //TODO check player spell level against spell
-                recipe.getAltarType match {
+                altarType match {
+                    case EnumAlterType.DAY => chargeCount += worldObj.getSunBrightness(1.0F)
+                    case EnumAlterType.NEUTRAL =>
+                        altarSubType match {
+                            case EnumAlterSubType.DAY =>
+                                if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime < 13805 || worldObj.getWorldTime > 22550))
+                                    chargeCount += worldObj.getSunBrightness(1.0F)
+                            case EnumAlterSubType.NIGHT =>
+                                if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime > 13805 && worldObj.getWorldTime < 22550))
+                                    chargeCount += worldObj.getCurrentMoonPhaseFactor
+                            case _ =>
+                        }
+                    case EnumAlterType.NIGHT =>
+                        if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime < 13805 || worldObj.getWorldTime > 22550))
+                            chargeCount += worldObj.getCurrentMoonPhaseFactor * 0.25F
+                        else chargeCount += worldObj.getCurrentMoonPhaseFactor
+                    case _ =>
+                }
+                /*recipe.getAltarType match {
                     case EnumAlterType.NEUTRAL =>
                         altarSubType match {
                             case EnumAlterSubType.DAY =>
@@ -59,7 +79,7 @@ class TileAltar extends UpdatingTile with Inventory {
                             chargeCount += worldObj.getCurrentMoonPhaseFactor * 0.25F
                         else chargeCount += worldObj.getCurrentMoonPhaseFactor
                     case _ =>
-                }
+                }*/
             } else {
                 if (altarSubType == EnumAlterSubType.DAY)
                     WorldUtils.dropStack(getWorld, recipe.getOutputStack.copy(), getPos)
@@ -85,6 +105,7 @@ class TileAltar extends UpdatingTile with Inventory {
         chargeCount = 0
         altarSubType = null
         recipe = null
+        altarType = null
     }
 
     override def onClientTick(): Unit = {
