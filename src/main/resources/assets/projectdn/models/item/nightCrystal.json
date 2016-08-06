@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "projectdn:items/red0"
+  },
+  "overrides": [
+    { "predicate": { "charge": 0.0 }, "model": "projectdn:item/red0" },
+    { "predicate": { "charge": 0.22 }, "model": "projectdn:item/red1" },
+    { "predicate": { "charge": 0.44 }, "model": "projectdn:item/red2" },
+    { "predicate": { "charge": 0.66 }, "model": "projectdn:item/red3" },
+    { "predicate": { "charge": 0.88 }, "model": "projectdn:item/red4" },
+    { "predicate": { "charge": 1.00 }, "model": "projectdn:item/red5" }
+  ]
+}

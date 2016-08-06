@@ -23,6 +23,8 @@ object ItemRenderManager {
 
     def registerItemRenderers(): Unit = {
         registerItem(ItemManager.spellLevelBook)
+        registerItem(ItemManager.dayCrystal)
+        registerItem(ItemManager.nightCrystal)
     }
 
     def registerItem(item: Item): Unit = {

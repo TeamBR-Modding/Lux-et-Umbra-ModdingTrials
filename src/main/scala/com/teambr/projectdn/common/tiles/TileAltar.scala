@@ -62,24 +62,6 @@ class TileAltar extends UpdatingTile with Inventory {
                         else chargeCount += worldObj.getCurrentMoonPhaseFactor
                     case _ =>
                 }
-                /*recipe.getAltarType match {
-                    case EnumAlterType.NEUTRAL =>
-                        altarSubType match {
-                            case EnumAlterSubType.DAY =>
-                                if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime < 13805 && worldObj.getWorldTime > 22550))
-                                    chargeCount += worldObj.getSunBrightness(1.0F)
-                            case EnumAlterSubType.NIGHT =>
-                                if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime > 13805 && worldObj.getWorldTime < 22550))
-                                    chargeCount += worldObj.getCurrentMoonPhaseFactor
-                            case _ =>
-                        }
-                    case EnumAlterType.DAY => chargeCount += worldObj.getSunBrightness(1.0F)
-                    case EnumAlterType.NIGHT =>
-                        if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime < 13805 && worldObj.getWorldTime > 22550))
-                            chargeCount += worldObj.getCurrentMoonPhaseFactor * 0.25F
-                        else chargeCount += worldObj.getCurrentMoonPhaseFactor
-                    case _ =>
-                }*/
             } else {
                 if (altarSubType == EnumAlterSubType.DAY)
                     WorldUtils.dropStack(getWorld, recipe.getOutputStack.copy(), getPos)

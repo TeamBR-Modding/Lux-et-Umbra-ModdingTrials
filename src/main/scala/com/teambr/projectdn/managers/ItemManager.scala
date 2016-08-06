@@ -1,6 +1,6 @@
 package com.teambr.projectdn.managers
 
-import com.teambr.projectdn.common.items.{ItemCrystal, ItemCrystalSeed, ItemIngotSky, ItemSpellLevelBook}
+import com.teambr.projectdn.common.items._
 import com.teambr.projectdn.lib.Constants
 import net.minecraft.item.Item
 import net.minecraftforge.fml.common.registry.{GameRegistry, IForgeRegistryEntry}
@@ -18,11 +18,14 @@ import net.minecraftforge.oredict.OreDictionary
   */
 object ItemManager {
 
-    lazy val itemCrystal = new ItemCrystal
+    lazy val dayCrystal = new ItemDayCrystal
+    lazy val nightCrystal = new ItemNightCrystal
     lazy val spellLevelBook = new ItemSpellLevelBook
 
     def preInit(): Unit = {
         registerItem(spellLevelBook, "spellLevelBook")
+        registerItem(dayCrystal, "dayCrystal")
+        registerItem(nightCrystal, "nightCrystal")
     }
 
     def registerItem(item: Item, name: String, oreDict: String): Item = {
