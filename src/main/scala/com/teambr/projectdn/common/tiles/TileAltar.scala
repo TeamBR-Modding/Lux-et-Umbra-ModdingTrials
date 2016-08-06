@@ -2,7 +2,7 @@ package com.teambr.projectdn.common.tiles
 
 import com.teambr.bookshelf.common.tiles.traits.{Inventory, UpdatingTile}
 import com.teambr.bookshelf.util.WorldUtils
-import com.teambr.projectdn.collections.WorldStructure.EnumAlterSubType
+import com.teambr.projectdn.collections.WorldStructure.{EnumAlterSubType, EnumAlterType}
 import com.teambr.projectdn.collections.{AltarRecipe, WorldStructure}
 import com.teambr.projectdn.registries.AltarRecipes
 import net.minecraft.entity.item.EntityItem
@@ -41,14 +41,19 @@ class TileAltar extends UpdatingTile with Inventory {
             }
         } else if (isWorking) {
             if (chargeCount < recipe.getRequiredCharge) {
-
-                altarSubType match {
-                    case EnumAlterSubType.DAY =>
-                        if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime < 13805 &&  worldObj.getWorldTime > 22550))
-                            chargeCount += worldObj.getSunBrightness(1.0F)
-                    case EnumAlterSubType.NIGHT =>
-                        if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime > 13805 &&  worldObj.getWorldTime < 22550))
-                            chargeCount += worldObj.getCurrentMoonPhaseFactor
+                recipe.getAltarType match {
+                    case EnumAlterType.NEUTRAL =>
+                        altarSubType match {
+                            case EnumAlterSubType.DAY =>
+                                if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime < 13805 && worldObj.getWorldTime > 22550))
+                                    chargeCount += worldObj.getSunBrightness(1.0F)
+                            case EnumAlterSubType.NIGHT =>
+                                if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime > 13805 && worldObj.getWorldTime < 22550))
+                                    chargeCount += worldObj.getCurrentMoonPhaseFactor
+                            case _ =>
+                        }
+                    case EnumAlterType.DAY => chargeCount += worldObj.getSunBrightness(1.0F)
+                    case EnumAlterType.NIGHT => chargeCount += worldObj.getCurrentMoonPhaseFactor
                     case _ =>
                 }
             } else {
@@ -85,10 +90,10 @@ class TileAltar extends UpdatingTile with Inventory {
             rotation += 1
 
         // Do Bounce
-        if(bounce > 0.05F)
+        if (bounce > 0.05F)
             bounceDir = -bounceDir
-        else if(bounce < -0.05F)
-            bounceDir = - bounceDir
+        else if (bounce < -0.05F)
+            bounceDir = -bounceDir
         bounce += bounceDir
     }
 
