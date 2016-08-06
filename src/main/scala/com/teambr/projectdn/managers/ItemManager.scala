@@ -18,10 +18,10 @@ import net.minecraftforge.oredict.OreDictionary
   */
 object ItemManager {
 
-    val itemCrystal = new ItemCrystal
-    val itemCrystalSeed = new ItemCrystalSeed
+    lazy val itemCrystal = new ItemCrystal
+    lazy val itemCrystalSeed = new ItemCrystalSeed
 
-    val ingotSky = new ItemIngotSky
+    lazy val ingotSky = new ItemIngotSky
 
     def preInit(): Unit = {
         //Crystals

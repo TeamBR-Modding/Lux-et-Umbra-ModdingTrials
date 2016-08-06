@@ -4,6 +4,7 @@ import com.teambr.projectdn.client.renderers.tiles.AltarEntityRenderer
 import com.teambr.projectdn.common.CommonProxy
 import com.teambr.projectdn.common.tiles.TileAltar
 import com.teambr.projectdn.lib.Constants
+import com.teambr.projectdn.managers.BlockManager
 import net.minecraftforge.client.model.obj.OBJLoader
 import net.minecraftforge.fml.client.registry.ClientRegistry
 
@@ -20,12 +21,12 @@ import net.minecraftforge.fml.client.registry.ClientRegistry
 class ClientProxy extends CommonProxy {
 
     override def preInit(): Unit = {
-        // Add OBJ Domain
-        OBJLoader.INSTANCE.addDomain(Constants.MOD_ID)
+        // Item Block Models
+        ItemRenderManager.registerBlockModel(BlockManager.blockAltar, "blockAltar", "normal")
     }
 
     override def init(): Unit = {
-        ItemRenderManager.registerItemRenderer()
+        ItemRenderManager.registerItemRenderers()
 
         ClientRegistry.bindTileEntitySpecialRenderer(classOf[TileAltar], new AltarEntityRenderer[TileAltar])
     }

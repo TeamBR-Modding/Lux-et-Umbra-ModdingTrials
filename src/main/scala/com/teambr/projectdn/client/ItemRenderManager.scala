@@ -21,10 +21,8 @@ import net.minecraftforge.client.model.ModelLoader
   */
 object ItemRenderManager {
 
-    def registerItemRenderer(): Unit = {
+    def registerItemRenderers(): Unit = {
         registerItem(ItemManager.ingotSky)
-
-        registerBlockModel(BlockManager.blockAltar, "blockAlter", "normal")
     }
 
     def registerItem(item: Item): Unit = {

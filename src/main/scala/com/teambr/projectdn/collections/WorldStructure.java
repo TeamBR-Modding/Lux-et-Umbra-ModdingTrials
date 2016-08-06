@@ -67,11 +67,11 @@ public class WorldStructure {
                         Blocks.STONEBRICK.getDefaultState(),
                         Blocks.STONE_BRICK_STAIRS.getDefaultState(),
                         Blocks.STONEBRICK.getDefaultState(),
-                        Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.CHISELED));
+                        Blocks.LAPIS_BLOCK.getDefaultState());
         NIGHT_TIER_1 =
                 WorldStructure.buildAlter(
-                        Blocks.BRICK_BLOCK.getDefaultState(),
-                        Blocks.BRICK_STAIRS.getDefaultState(),
+                        Blocks.STONEBRICK.getDefaultState(),
+                        Blocks.STONE_BRICK_STAIRS.getDefaultState(),
                         Blocks.STONEBRICK.getDefaultState(),
                         Blocks.REDSTONE_BLOCK.getDefaultState());
         NIGHT_TIER_2 =
@@ -229,8 +229,13 @@ public class WorldStructure {
                                 }
                             } else {
                                 if(localState != worldState) {
-                                    checking = EnumAlterType.INVALID;
-                                    break;
+                                    // Same Type Tier 1
+                                    if(y == 3 && (checking == EnumAlterType.DAY_TIER_1 || checking == EnumAlterType.NIGHT_TIER_1) && worldState.getBlock() == Blocks.REDSTONE_BLOCK) {
+                                        checking = EnumAlterType.NIGHT_TIER_1;
+                                    } else {
+                                        checking = EnumAlterType.INVALID;
+                                        break;
+                                    }
                                 }
                             }
                         }

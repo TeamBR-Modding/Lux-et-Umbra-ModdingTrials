@@ -21,7 +21,7 @@ import net.minecraftforge.oredict.OreDictionary
   */
 object BlockManager {
 
-    val blockCrystal = new BlockCrystal
+    lazy val blockCrystal = new BlockCrystal
     lazy val blockAltar = new BlockAltar
 
     def preInit(): Unit = {

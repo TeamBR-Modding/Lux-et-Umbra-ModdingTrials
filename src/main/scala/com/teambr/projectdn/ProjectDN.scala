@@ -53,11 +53,12 @@ object ProjectDN {
         ConfigManager.preInit()
         BlockManager.preInit()
         ItemManager.preInit()
+        proxy.preInit()
     }
 
     @EventHandler
     def init(event: FMLInitializationEvent) = {
-        WorldStructure.buildDefaultAlters
+        WorldStructure.buildDefaultAlters()
         proxy.init()
         AltarRecipes.init()
     }
