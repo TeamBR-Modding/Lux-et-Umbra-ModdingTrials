@@ -1,11 +1,14 @@
 package com.teambr.projectdn.common.tiles
 
 import com.teambr.bookshelf.common.tiles.traits.{Inventory, UpdatingTile}
+import com.teambr.bookshelf.util.WorldUtils
 import com.teambr.projectdn.collections.WorldStructure.EnumAlterType
 import com.teambr.projectdn.collections.{AltarRecipe, WorldStructure}
 import com.teambr.projectdn.registries.AltarRecipes
 import net.minecraft.entity.item.EntityItem
+import net.minecraft.entity.monster.EntityZombie
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.util.EnumHand
 
 /**
   * This file was created for ProjectDN
@@ -39,16 +42,27 @@ class TileAltar extends UpdatingTile with Inventory {
         } else if (isWorking) {
             if (chargeCount < recipe.getRequiredCharge) {
                 altarType match {
-                    case EnumAlterType.DAY_TIER_1 =>
+                    case EnumAlterType.DAY =>
                         if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime < 13805 ||  worldObj.getWorldTime > 22550))
                             chargeCount += worldObj.getSunBrightness(1.0F)
-                    case EnumAlterType.NIGHT_TIER_1 =>
+                    case EnumAlterType.NIGHT =>
                         if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime > 13805 ||  worldObj.getWorldTime < 22550))
                             chargeCount += worldObj.getCurrentMoonPhaseFactor
                     case _ =>
                 }
             } else {
-                setStackInSlot(0, recipe.getOutputStack.copy())
+                if (altarType == EnumAlterType.DAY || altarType == EnumAlterType.NEUTRAL)
+                    WorldUtils.dropStack(getWorld, recipe.getOutputStack.copy(), getPos)
+                else {
+                    val entity = new EntityZombie(worldObj)
+                    entity.setHeldItem(EnumHand.MAIN_HAND, getStackInSlot(0).copy())
+                    entity.setDropItemsWhenDead(true)
+                    entity.enablePersistence()
+                    entity.setLocationAndAngles(getPos.getX + 0.5, getPos.getY + 1, getPos.getZ + 0.5, 0.0F, 0.0F)
+                    entity.attackEntityAsMob(worldObj.getClosestPlayer(getPos.getX, getPos.getY, getPos.getZ, 10.0, false))
+                    worldObj.spawnEntityInWorld(entity)
+                }
+                setStackInSlot(0, null)
                 reset()
                 worldObj.notifyBlockUpdate(getPos, worldObj.getBlockState(getPos), worldObj.getBlockState(getPos), 3)
             }
