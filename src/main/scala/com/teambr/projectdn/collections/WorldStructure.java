@@ -1,9 +1,7 @@
 package com.teambr.projectdn.collections;
 
+import net.minecraft.block.BlockQuartz;
 import net.minecraft.block.BlockStairs;
-import net.minecraft.block.BlockStoneBrick;
-import net.minecraft.block.state.BlockStateBase;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
@@ -24,20 +22,14 @@ import net.minecraft.world.World;
  */
 public class WorldStructure {
 
-    public static WorldStructure DAY_TIER_1;
-    public static WorldStructure DAY_TIER_2;
-    public static WorldStructure DAY_TIER_3;
-    public static WorldStructure NIGHT_TIER_1;
-    public static WorldStructure NIGHT_TIER_2;
-    public static WorldStructure NIGHT_TIER_3;
+    public static WorldStructure NEUTRAL;
+    public static WorldStructure DAY;
+    public static WorldStructure NIGHT;
 
     public enum EnumAlterType {
-        DAY_TIER_1,
-        DAY_TIER_2,
-        DAY_TIER_3,
-        NIGHT_TIER_1,
-        NIGHT_TIER_2,
-        NIGHT_TIER_3,
+        NEUTRAL,
+        DAY,
+        NIGHT,
         INVALID
     }
 
@@ -62,24 +54,24 @@ public class WorldStructure {
     }
 
     public static void buildDefaultAlters() {
-        DAY_TIER_1 =
-                WorldStructure.buildAlter(
-                        Blocks.STONEBRICK.getDefaultState(),
-                        Blocks.STONE_BRICK_STAIRS.getDefaultState(),
-                        Blocks.STONEBRICK.getDefaultState(),
-                        Blocks.REDSTONE_BLOCK.getDefaultState());
-        NIGHT_TIER_1 =
+        NEUTRAL =
                 WorldStructure.buildAlter(
                         Blocks.STONEBRICK.getDefaultState(),
                         Blocks.STONE_BRICK_STAIRS.getDefaultState(),
                         Blocks.STONEBRICK.getDefaultState(),
                         Blocks.LAPIS_BLOCK.getDefaultState());
-        NIGHT_TIER_2 =
+        DAY =
+                WorldStructure.buildAlter(
+                        Blocks.QUARTZ_BLOCK.getDefaultState(),
+                        Blocks.QUARTZ_STAIRS.getDefaultState(),
+                        Blocks.QUARTZ_BLOCK.getDefaultState().withProperty(BlockQuartz.VARIANT, BlockQuartz.EnumType.LINES_Y),
+                        Blocks.GLOWSTONE.getDefaultState());
+        NIGHT =
                 WorldStructure.buildAlter(
                         Blocks.NETHER_BRICK.getDefaultState(),
                         Blocks.NETHER_BRICK_STAIRS.getDefaultState(),
-                        Blocks.NETHER_BRICK.getDefaultState(),
-                        Blocks.NETHER_BRICK_FENCE.getDefaultState());
+                        Blocks.field_189880_di.getDefaultState(),
+                        Blocks.field_189878_dg.getDefaultState());
     }
 
 
@@ -199,15 +191,15 @@ public class WorldStructure {
         IBlockState stateUnderAlter = world.getBlockState(alterPos.offset(EnumFacing.DOWN));
 
         // Day Tier 1
-        if(stateUnderAlter == DAY_TIER_1.structure[6][0][6]) {
-            masterList = DAY_TIER_1;
-            checking = EnumAlterType.DAY_TIER_1;
-        } else if (stateUnderAlter == NIGHT_TIER_1.structure[6][0][6]) {
-            masterList = NIGHT_TIER_1;
-            checking = EnumAlterType.NIGHT_TIER_1;
-        } else if (stateUnderAlter == NIGHT_TIER_2.structure[6][0][6]) {
-            masterList = NIGHT_TIER_2;
-            checking = EnumAlterType.NIGHT_TIER_2;
+        if(stateUnderAlter == NEUTRAL.structure[6][0][6]) {
+            masterList = NEUTRAL;
+            checking = EnumAlterType.NEUTRAL;
+        } else if (stateUnderAlter == DAY.structure[6][0][6]) {
+            masterList = DAY;
+            checking = EnumAlterType.DAY;
+        } else if (stateUnderAlter == NIGHT.structure[6][0][6]) {
+            masterList = NIGHT;
+            checking = EnumAlterType.NIGHT;
         }
 
         // Check against master
@@ -229,13 +221,9 @@ public class WorldStructure {
                                 }
                             } else {
                                 if(localState != worldState) {
-                                    // Same Type Tier 1
-                                    if(y == 3 && (checking == EnumAlterType.DAY_TIER_1 || checking == EnumAlterType.NIGHT_TIER_1) && worldState.getBlock() == Blocks.REDSTONE_BLOCK) {
-                                        checking = EnumAlterType.NIGHT_TIER_1;
-                                    } else {
-                                        checking = EnumAlterType.INVALID;
-                                        break;
-                                    }
+                                    checking = EnumAlterType.INVALID;
+                                    break;
+
                                 }
                             }
                         }
