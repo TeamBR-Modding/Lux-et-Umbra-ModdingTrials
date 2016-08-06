@@ -2,7 +2,7 @@ package com.teambr.projectdn.common.tiles
 
 import com.teambr.bookshelf.common.tiles.traits.{Inventory, UpdatingTile}
 import com.teambr.bookshelf.util.WorldUtils
-import com.teambr.projectdn.collections.WorldStructure.EnumAlterType
+import com.teambr.projectdn.collections.WorldStructure.EnumAlterSubType
 import com.teambr.projectdn.collections.{AltarRecipe, WorldStructure}
 import com.teambr.projectdn.registries.AltarRecipes
 import net.minecraft.entity.item.EntityItem
@@ -26,7 +26,7 @@ class TileAltar extends UpdatingTile with Inventory {
     var chargeCount = 0.0F
     var entity: EntityItem = _
     var recipe: AltarRecipe = _
-    var altarType: EnumAlterType = EnumAlterType.INVALID
+    var altarSubType: EnumAlterSubType = _
 
     var rotation = 0
     var bounce = 0F
@@ -37,21 +37,22 @@ class TileAltar extends UpdatingTile with Inventory {
             recipe = AltarRecipes.getRecipe(WorldStructure.getAlterType(worldObj, getPos), getStackInSlot(0))
             if (recipe != null) {
                 isWorking = true
-                altarType = WorldStructure.getAlterType(worldObj, getPos)
+                altarSubType = recipe.getAltarSubType
             }
         } else if (isWorking) {
             if (chargeCount < recipe.getRequiredCharge) {
-                altarType match {
-                    case EnumAlterType.DAY =>
-                        if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime < 13805 ||  worldObj.getWorldTime > 22550))
+
+                altarSubType match {
+                    case EnumAlterSubType.DAY =>
+                        if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime < 13805 &&  worldObj.getWorldTime > 22550))
                             chargeCount += worldObj.getSunBrightness(1.0F)
-                    case EnumAlterType.NIGHT =>
-                        if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime > 13805 ||  worldObj.getWorldTime < 22550))
+                    case EnumAlterSubType.NIGHT =>
+                        if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime > 13805 &&  worldObj.getWorldTime < 22550))
                             chargeCount += worldObj.getCurrentMoonPhaseFactor
                     case _ =>
                 }
             } else {
-                if (altarType == EnumAlterType.DAY || altarType == EnumAlterType.NEUTRAL)
+                if (altarSubType == EnumAlterSubType.DAY)
                     WorldUtils.dropStack(getWorld, recipe.getOutputStack.copy(), getPos)
                 else {
                     val entity = new EntityZombie(worldObj)
@@ -72,7 +73,7 @@ class TileAltar extends UpdatingTile with Inventory {
     private def reset(): Unit = {
         isWorking = false
         chargeCount = 0
-        altarType = EnumAlterType.INVALID
+        altarSubType = null
         recipe = null
     }
 
@@ -111,16 +112,12 @@ class TileAltar extends UpdatingTile with Inventory {
     override def readFromNBT(tag: NBTTagCompound): Unit = {
         super[TileEntity].readFromNBT(tag)
         super[Inventory].readFromNBT(tag)
-        /*isWorking = tag.getBoolean("IsWorking")
-        chargeCount = tag.getFloat("ChannelCount")*/
         onInventoryChanged(0)
     }
 
     override def writeToNBT(tag: NBTTagCompound): NBTTagCompound = {
         super[TileEntity].writeToNBT(tag)
         super[Inventory].writeToNBT(tag)
-        /*tag.setBoolean("IsWorking", isWorking)
-        tag.setFloat("ChannelCount", chargeCount)*/
         tag
     }
 }

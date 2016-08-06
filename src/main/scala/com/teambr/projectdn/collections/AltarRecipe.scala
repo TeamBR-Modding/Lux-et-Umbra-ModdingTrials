@@ -1,6 +1,6 @@
 package com.teambr.projectdn.collections
 
-import com.teambr.projectdn.collections.WorldStructure.EnumAlterType
+import com.teambr.projectdn.collections.WorldStructure.{EnumAlterType, EnumAlterSubType}
 import net.minecraft.item.ItemStack
 
 /**
@@ -16,19 +16,23 @@ import net.minecraft.item.ItemStack
 class AltarRecipe {
 
     private var altarType: EnumAlterType = _
+    private var altarSubType: EnumAlterSubType = _
     private var inputStack: ItemStack = _
     private var outputStack: ItemStack = _
     private var reqCharge: Float = 0.0F
 
-    def this(alterType: EnumAlterType, inputStack: ItemStack, outputStack: ItemStack, reqCharge: Float) {
+    def this(alterType: EnumAlterType, alterSubType: EnumAlterSubType, inputStack: ItemStack, outputStack: ItemStack, reqCharge: Float) {
         this()
         this.altarType = alterType
+        this.altarSubType = alterSubType
         this.inputStack = inputStack
         this.outputStack = outputStack
         this.reqCharge = reqCharge
     }
 
     def getAltarType: EnumAlterType = altarType
+
+    def getAltarSubType: EnumAlterSubType = altarSubType
 
     def getInputStack: ItemStack = inputStack
 

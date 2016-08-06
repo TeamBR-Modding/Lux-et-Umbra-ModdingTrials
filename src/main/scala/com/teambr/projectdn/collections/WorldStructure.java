@@ -33,6 +33,11 @@ public class WorldStructure {
         INVALID
     }
 
+    public enum EnumAlterSubType {
+        NIGHT,
+        DAY
+    }
+
     public IBlockState[][][] structure;
 
     /***

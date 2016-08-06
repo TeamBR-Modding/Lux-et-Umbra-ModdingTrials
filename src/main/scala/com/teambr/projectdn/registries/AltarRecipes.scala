@@ -1,7 +1,7 @@
 package com.teambr.projectdn.registries
 
 import com.teambr.projectdn.collections.AltarRecipe
-import com.teambr.projectdn.collections.WorldStructure.EnumAlterType
+import com.teambr.projectdn.collections.WorldStructure.{EnumAlterType, EnumAlterSubType}
 import com.teambr.projectdn.managers.ItemManager
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
@@ -23,10 +23,10 @@ object AltarRecipes {
     private lazy val altarRecipes = new ArrayBuffer[AltarRecipe]
 
     def init(): Unit = {
-        altarRecipes += new AltarRecipe(EnumAlterType.DAY, new ItemStack(Items.DIAMOND), new ItemStack(ItemManager.itemCrystal, 1, 1), 10.0F)
-        altarRecipes += new AltarRecipe(EnumAlterType.DAY, new ItemStack(Items.EMERALD), new ItemStack(ItemManager.itemCrystal, 1, 1), 10.0F)
-        altarRecipes += new AltarRecipe(EnumAlterType.NIGHT, new ItemStack(Items.NETHER_STAR), new ItemStack(ItemManager.itemCrystal, 1, 1), 10.0F)
-        altarRecipes += new AltarRecipe(EnumAlterType.NEUTRAL, new ItemStack(Items.NETHER_WART), new ItemStack(ItemManager.itemCrystal, 1, 1), 10.0F)
+        altarRecipes += new AltarRecipe(EnumAlterType.DAY, EnumAlterSubType.DAY, new ItemStack(Items.DIAMOND), new ItemStack(ItemManager.itemCrystal, 1, 1), 10.0F)
+        altarRecipes += new AltarRecipe(EnumAlterType.NEUTRAL ,EnumAlterSubType.DAY, new ItemStack(Items.EMERALD), new ItemStack(ItemManager.itemCrystal, 1, 1), 10.0F)
+        altarRecipes += new AltarRecipe(EnumAlterType.NIGHT, EnumAlterSubType.NIGHT, new ItemStack(Items.NETHER_STAR), new ItemStack(ItemManager.itemCrystal, 1, 1), 10.0F)
+        altarRecipes += new AltarRecipe(EnumAlterType.NEUTRAL, EnumAlterSubType.NIGHT, new ItemStack(Items.NETHER_WART), new ItemStack(ItemManager.itemCrystal, 1, 1), 10.0F)
     }
 
     def isItemValid(enumAlterType: EnumAlterType, itemStack: ItemStack): Boolean = {
