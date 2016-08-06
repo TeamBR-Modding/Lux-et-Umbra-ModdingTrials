@@ -67,13 +67,13 @@ public class WorldStructure {
                         Blocks.STONEBRICK.getDefaultState(),
                         Blocks.STONE_BRICK_STAIRS.getDefaultState(),
                         Blocks.STONEBRICK.getDefaultState(),
-                        Blocks.LAPIS_BLOCK.getDefaultState());
+                        Blocks.REDSTONE_BLOCK.getDefaultState());
         NIGHT_TIER_1 =
                 WorldStructure.buildAlter(
                         Blocks.STONEBRICK.getDefaultState(),
                         Blocks.STONE_BRICK_STAIRS.getDefaultState(),
                         Blocks.STONEBRICK.getDefaultState(),
-                        Blocks.REDSTONE_BLOCK.getDefaultState());
+                        Blocks.LAPIS_BLOCK.getDefaultState());
         NIGHT_TIER_2 =
                 WorldStructure.buildAlter(
                         Blocks.NETHER_BRICK.getDefaultState(),
