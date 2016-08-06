@@ -20,14 +20,16 @@ class AltarRecipe {
     private var inputStack: ItemStack = _
     private var outputStack: ItemStack = _
     private var reqCharge: Float = 0.0F
+    private var spellLevel: Int = 0
 
-    def this(alterType: EnumAlterType, alterSubType: EnumAlterSubType, inputStack: ItemStack, outputStack: ItemStack, reqCharge: Float) {
+    def this(alterType: EnumAlterType, alterSubType: EnumAlterSubType, inputStack: ItemStack, outputStack: ItemStack, reqCharge: Float, spellLevel: Int) {
         this()
         this.altarType = alterType
         this.altarSubType = alterSubType
         this.inputStack = inputStack
         this.outputStack = outputStack
         this.reqCharge = reqCharge
+        this.spellLevel = spellLevel
     }
 
     def getAltarType: EnumAlterType = altarType
@@ -39,4 +41,6 @@ class AltarRecipe {
     def getOutputStack: ItemStack = outputStack
 
     def getRequiredCharge: Float = reqCharge
+
+    def getSpellLevel: Int = spellLevel
 }

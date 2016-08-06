@@ -2,8 +2,9 @@ package com.teambr.projectdn
 
 import java.io.File
 
+import com.teambr.projectdn.capabilities.player.SpellLevelCapability
 import com.teambr.projectdn.collections.WorldStructure
-import com.teambr.projectdn.commands.DebugAlter
+import com.teambr.projectdn.commands.{DebugAlter, SetSpellLevel}
 import com.teambr.projectdn.common.CommonProxy
 import com.teambr.projectdn.lib.Constants
 import com.teambr.projectdn.managers.{BlockManager, ConfigManager, ItemManager}
@@ -11,6 +12,7 @@ import com.teambr.projectdn.registries.AltarRecipes
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Items
 import net.minecraft.item.Item
+import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod.EventHandler
 import net.minecraftforge.fml.common.event.{FMLInitializationEvent, FMLPostInitializationEvent, FMLPreInitializationEvent, FMLServerStartingEvent}
 import net.minecraftforge.fml.common.{Mod, SidedProxy}
@@ -54,6 +56,7 @@ object ProjectDN {
         BlockManager.preInit()
         ItemManager.preInit()
         proxy.preInit()
+        SpellLevelCapability.register()
     }
 
     @EventHandler
@@ -70,5 +73,6 @@ object ProjectDN {
 
     @EventHandler def serverLoad(event: FMLServerStartingEvent) {
         event.registerServerCommand(new DebugAlter)
+        event.registerServerCommand(new SetSpellLevel)
     }
 }

@@ -23,10 +23,10 @@ object AltarRecipes {
     private lazy val altarRecipes = new ArrayBuffer[AltarRecipe]
 
     def init(): Unit = {
-        altarRecipes += new AltarRecipe(EnumAlterType.DAY, EnumAlterSubType.DAY, new ItemStack(Items.DIAMOND), new ItemStack(ItemManager.itemCrystal, 1, 1), 10.0F)
-        altarRecipes += new AltarRecipe(EnumAlterType.NEUTRAL ,EnumAlterSubType.DAY, new ItemStack(Items.EMERALD), new ItemStack(ItemManager.itemCrystal, 1, 1), 10.0F)
-        altarRecipes += new AltarRecipe(EnumAlterType.NIGHT, EnumAlterSubType.NIGHT, new ItemStack(Items.NETHER_STAR), new ItemStack(ItemManager.itemCrystal, 1, 1), 10.0F)
-        altarRecipes += new AltarRecipe(EnumAlterType.NEUTRAL, EnumAlterSubType.NIGHT, new ItemStack(Items.NETHER_WART), new ItemStack(ItemManager.itemCrystal, 1, 1), 10.0F)
+        altarRecipes += new AltarRecipe(EnumAlterType.DAY, EnumAlterSubType.DAY, new ItemStack(Items.DIAMOND), new ItemStack(ItemManager.itemCrystal, 1, 1), 10.0F, 2)
+        altarRecipes += new AltarRecipe(EnumAlterType.NEUTRAL ,EnumAlterSubType.DAY, new ItemStack(Items.EMERALD), new ItemStack(ItemManager.itemCrystal, 1, 1), 10.0F, 0)
+        altarRecipes += new AltarRecipe(EnumAlterType.NIGHT, EnumAlterSubType.NIGHT, new ItemStack(Items.NETHER_STAR), new ItemStack(ItemManager.itemCrystal, 1, 1), 10.0F, -3)
+        altarRecipes += new AltarRecipe(EnumAlterType.NEUTRAL, EnumAlterSubType.NIGHT, new ItemStack(Items.NETHER_WART), new ItemStack(ItemManager.itemCrystal, 1, 1), 10.0F, 1)
     }
 
     def isItemValid(enumAlterType: EnumAlterType, itemStack: ItemStack): Boolean = {

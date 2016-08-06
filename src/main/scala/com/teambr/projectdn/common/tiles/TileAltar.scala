@@ -41,7 +41,7 @@ class TileAltar extends UpdatingTile with Inventory {
                 altarSubType = recipe.getAltarSubType
             }
         } else if (isWorking) {
-            if (chargeCount < recipe.getRequiredCharge) {
+            if (chargeCount < recipe.getRequiredCharge) { //TODO check player spell level against spell
                 recipe.getAltarType match {
                     case EnumAlterType.NEUTRAL =>
                         altarSubType match {
@@ -54,14 +54,17 @@ class TileAltar extends UpdatingTile with Inventory {
                             case _ =>
                         }
                     case EnumAlterType.DAY => chargeCount += worldObj.getSunBrightness(1.0F)
-                    case EnumAlterType.NIGHT => chargeCount += worldObj.getCurrentMoonPhaseFactor
+                    case EnumAlterType.NIGHT =>
+                        if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime < 13805 && worldObj.getWorldTime > 22550))
+                            chargeCount += worldObj.getCurrentMoonPhaseFactor * 0.25F
+                        else chargeCount += worldObj.getCurrentMoonPhaseFactor
                     case _ =>
                 }
             } else {
                 if (altarSubType == EnumAlterSubType.DAY)
                     WorldUtils.dropStack(getWorld, recipe.getOutputStack.copy(), getPos)
                 else {
-                    val entity = new EntityZombie(worldObj)
+                    val entity = new EntityZombie(worldObj) //TODO higher recipes more armor
                     entity.setHeldItem(EnumHand.MAIN_HAND, recipe.getOutputStack.copy())
                     entity.setDropItemsWhenDead(true)
                     entity.setDropChance(EntityEquipmentSlot.MAINHAND, 1.0F)
