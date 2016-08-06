@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "projectdn",
+  "name": "Night and Day",
+  "description": "Pick your side! Will you learn the dark arts of Night Magic or the healing powers of Day Magic? You decide in this new magic mod from the team behind NeoTech and Modular Systems",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["pauljoda, Dyonovan"],
+  "credits": "The Beyond Reality Team, hawtbawlz",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

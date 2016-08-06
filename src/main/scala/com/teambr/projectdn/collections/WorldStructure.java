@@ -1,6 +1,7 @@
 package com.teambr.projectdn.collections;
 
 import net.minecraft.block.BlockQuartz;
+import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -75,8 +76,8 @@ public class WorldStructure {
                 WorldStructure.buildAlter(
                         Blocks.NETHER_BRICK.getDefaultState(),
                         Blocks.NETHER_BRICK_STAIRS.getDefaultState(),
-                        Blocks.field_189880_di.getDefaultState(),
-                        Blocks.field_189878_dg.getDefaultState());
+                        Blocks.field_189880_di.getDefaultState().withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y),
+                        Blocks.field_189877_df.getDefaultState());
     }
 
 
