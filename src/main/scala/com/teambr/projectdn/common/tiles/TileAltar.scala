@@ -7,6 +7,7 @@ import com.teambr.projectdn.collections.{AltarRecipe, WorldStructure}
 import com.teambr.projectdn.registries.AltarRecipes
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.monster.EntityZombie
+import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumHand
 
@@ -61,8 +62,9 @@ class TileAltar extends UpdatingTile with Inventory {
                     WorldUtils.dropStack(getWorld, recipe.getOutputStack.copy(), getPos)
                 else {
                     val entity = new EntityZombie(worldObj)
-                    entity.setHeldItem(EnumHand.MAIN_HAND, getStackInSlot(0).copy())
+                    entity.setHeldItem(EnumHand.MAIN_HAND, recipe.getOutputStack.copy())
                     entity.setDropItemsWhenDead(true)
+                    entity.setDropChance(EntityEquipmentSlot.MAINHAND, 1.0F)
                     entity.enablePersistence()
                     entity.setLocationAndAngles(getPos.getX + 0.5, getPos.getY + 1, getPos.getZ + 0.5, 0.0F, 0.0F)
                     entity.attackEntityAsMob(worldObj.getClosestPlayer(getPos.getX, getPos.getY, getPos.getZ, 10.0, false))
