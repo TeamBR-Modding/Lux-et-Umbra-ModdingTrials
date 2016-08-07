@@ -31,7 +31,7 @@ trait EnergyUserItem extends Item {
 
         MAGIC_TYPE match {
             case CrystalType.crystalType.DAY =>
-                if (playerSpellLevel < MIN_SPELL_LEVEL) {
+                if (MIN_SPELL_LEVEL != 0 && playerSpellLevel < MIN_SPELL_LEVEL) {
                     player.addChatComponentMessage(new TextComponentString(I18n.format("luxetumbra:energyuse.nolevel")))
                     return false
                 }
@@ -51,6 +51,25 @@ trait EnergyUserItem extends Item {
                     return true
                 }
             case CrystalType.crystalType.NIGHT =>
+                if (MIN_SPELL_LEVEL != 0 && playerSpellLevel > MIN_SPELL_LEVEL) {
+                    player.addChatComponentMessage(new TextComponentString(I18n.format("luxetumbra:energyuse.nolevel")))
+                    return false
+                }
+                val slot = findStackInInventory(player, new ItemStack(ItemManager.nightCrystal))
+                if (slot == -1) {
+                    player.addChatComponentMessage(new TextComponentString(I18n.format("luxetumbra:energyuse.nonightcrystal")))
+                    return false
+                }
+                val stack = player.inventory.getStackInSlot(slot)
+                val item = stack.getItem.asInstanceOf[CrystalPower]
+                val actual = item.extractEnergy(stack, ENERGY_REQUIRED, simulate = true)
+                if (actual < ENERGY_REQUIRED) {
+                    player.addChatComponentMessage(new TextComponentString(I18n.format("luxetumbra:energyuse.notenoughenergy")))
+                    return false
+                } else {
+                    item.extractEnergy(stack, ENERGY_REQUIRED, simulate = false)
+                    return true
+                }
             case _ =>
         }
         false
@@ -58,7 +77,7 @@ trait EnergyUserItem extends Item {
 
     protected def findStackInInventory(player: EntityPlayer, stack: ItemStack): Int = {
         for (i <- player.inventory.mainInventory.indices) {
-            if (player.inventory.getStackInSlot(i).isItemEqualIgnoreDurability(stack))
+            if (player.inventory.getStackInSlot(i) != null && player.inventory.getStackInSlot(i).isItemEqualIgnoreDurability(stack))
                 return i
         }
         -1
