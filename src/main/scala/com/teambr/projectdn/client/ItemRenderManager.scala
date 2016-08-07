@@ -25,6 +25,8 @@ object ItemRenderManager {
         registerItem(ItemManager.spellLevelBook)
         registerItem(ItemManager.dayCrystal)
         registerItem(ItemManager.nightCrystal)
+        registerItem(ItemManager.dayShield)
+        registerItem(ItemManager.nightShield)
     }
 
     def registerItem(item: Item): Unit = {

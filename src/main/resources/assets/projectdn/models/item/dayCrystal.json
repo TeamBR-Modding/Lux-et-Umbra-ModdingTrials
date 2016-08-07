@@ -1,14 +1,14 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "projectdn:items/blue0"
+    "layer0": "projectdn:items/dayCrystalStage5"
   },
   "overrides": [
-    { "predicate": { "charge": 0.0 }, "model": "projectdn:item/blue0" },
-    { "predicate": { "charge": 0.22 }, "model": "projectdn:item/blue1" },
-    { "predicate": { "charge": 0.44 }, "model": "projectdn:item/blue2" },
-    { "predicate": { "charge": 0.66 }, "model": "projectdn:item/blue3" },
-    { "predicate": { "charge": 0.88 }, "model": "projectdn:item/blue4" },
-    { "predicate": { "charge": 1.00 }, "model": "projectdn:item/blue5" }
+    { "predicate": { "charge": 0.0 }, "model": "projectdn:item/dayCrystalStage5" },
+    { "predicate": { "charge": 0.22 }, "model": "projectdn:item/dayCrystalStage4" },
+    { "predicate": { "charge": 0.44 }, "model": "projectdn:item/dayCrystalStage3" },
+    { "predicate": { "charge": 0.66 }, "model": "projectdn:item/dayCrystalStage2" },
+    { "predicate": { "charge": 0.88 }, "model": "projectdn:item/dayCrystalStage1" },
+    { "predicate": { "charge": 1.00 }, "model": "projectdn:item/dayCrystalStage0" }
   ]
 }

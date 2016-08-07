@@ -22,10 +22,18 @@ object ItemManager {
     lazy val nightCrystal = new ItemNightCrystal
     lazy val spellLevelBook = new ItemSpellLevelBook
 
+    lazy val dayShield = new ItemEnergyShield("dayShield")
+    lazy val nightShield = new ItemEnergyShield("nightShield")
+
     def preInit(): Unit = {
         registerItem(spellLevelBook, "spellLevelBook")
         registerItem(dayCrystal, "dayCrystal")
         registerItem(nightCrystal, "nightCrystal")
+
+        registerItem(dayShield, "dayShield")
+        registerItem(nightShield, "nightShield")
+        new DummyBlock().setRegistryName(Constants.MOD_ID + "dayShield")
+        new DummyBlock().setRegistryName(Constants.MOD_ID + "nightShield")
     }
 
     def registerItem(item: Item, name: String, oreDict: String): Item = {

@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "projectdn:items/red5"
+    "layer0": "projectdn:items/nightCrystalStage5"
   },
   "display": {
     "thirdperson": {

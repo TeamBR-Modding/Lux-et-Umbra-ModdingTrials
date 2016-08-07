@@ -1,11 +1,15 @@
 package com.teambr.projectdn.client
 
+import com.teambr.projectdn.client.renderers.items.{ShieldRendererDay, ShieldRendererNight}
 import com.teambr.projectdn.client.renderers.tiles.AltarEntityRenderer
 import com.teambr.projectdn.common.CommonProxy
+import com.teambr.projectdn.common.items.{DummyDayTile, DummyNightTile, DummyTile, ItemEnergyShield}
 import com.teambr.projectdn.common.tiles.TileAltar
 import com.teambr.projectdn.lib.Constants
-import com.teambr.projectdn.managers.BlockManager
+import com.teambr.projectdn.managers.{BlockManager, ItemManager}
+import net.minecraftforge.client.ForgeHooksClient
 import net.minecraftforge.client.model.obj.OBJLoader
+import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.fml.client.registry.ClientRegistry
 
 /**
@@ -28,6 +32,12 @@ class ClientProxy extends CommonProxy {
     override def init(): Unit = {
         ItemRenderManager.registerItemRenderers()
 
+        // Shield
+        ForgeHooksClient.registerTESRItemStack(ItemManager.dayShield, 0, classOf[DummyDayTile])
+        ForgeHooksClient.registerTESRItemStack(ItemManager.nightShield, 0, classOf[DummyNightTile])
+
+        ClientRegistry.bindTileEntitySpecialRenderer(classOf[DummyDayTile], new ShieldRendererDay[DummyDayTile])
+        ClientRegistry.bindTileEntitySpecialRenderer(classOf[DummyNightTile], new ShieldRendererNight[DummyNightTile])
         ClientRegistry.bindTileEntitySpecialRenderer(classOf[TileAltar], new AltarEntityRenderer[TileAltar])
     }
 
