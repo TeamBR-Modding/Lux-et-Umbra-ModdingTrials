@@ -1,6 +1,7 @@
 package com.teambr.luxetumbra.common.items
 import com.teambr.luxetumbra.collections.CrystalType
 import com.teambr.luxetumbra.collections.CrystalType.crystalType
+import com.teambr.luxetumbra.common.items.traits.CrystalPower
 import com.teambr.luxetumbra.lib.Constants
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer

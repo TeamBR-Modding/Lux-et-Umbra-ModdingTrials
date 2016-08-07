@@ -52,7 +52,7 @@ class BlockAltar extends BaseBlock(Material.IRON, "blockAltar", classOf[TileAlta
                 player.setFire(20)
                 player.setPositionAndUpdate(pos.getX, pos.getY + 10, pos.getZ)
                 player.addPotionEffect(new PotionEffect(MobEffects.LEVITATION, 100))
-                player.addChatComponentMessage(new TextComponentString(I18n.format("luxetumbra:altar:day:nopass")))
+                player.addChatComponentMessage(new TextComponentString(I18n.format("luxetumbra:altar.day.nopass")))
                 return true
             }
 

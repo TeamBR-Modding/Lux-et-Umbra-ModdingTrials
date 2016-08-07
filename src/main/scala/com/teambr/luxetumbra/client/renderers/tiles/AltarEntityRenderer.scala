@@ -40,6 +40,8 @@ class AltarEntityRenderer[T <: TileAltar] extends TileEntitySpecialRenderer[T] {
 
         renderManager.doRenderEntity(item, 0.0, dropHeight + te.bounce, 0.0, 0.0F, 0, true)
 
+
+
         GlStateManager.popAttrib()
         GlStateManager.enableLighting()
         renderManager.setRenderShadow(true)

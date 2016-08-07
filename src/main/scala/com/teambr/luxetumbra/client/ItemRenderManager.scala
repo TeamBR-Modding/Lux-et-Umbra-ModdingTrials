@@ -27,6 +27,7 @@ object ItemRenderManager {
         registerItem(ItemManager.nightCrystal)
         registerItem(ItemManager.dayShield)
         registerItem(ItemManager.nightShield)
+        registerItem(ItemManager.teleporter)
     }
 
     def registerItem(item: Item): Unit = {

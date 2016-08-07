@@ -1,4 +1,4 @@
-package com.teambr.luxetumbra.common.items
+package com.teambr.luxetumbra.common.items.traits
 
 import com.teambr.luxetumbra.LuxEtUmbra
 import com.teambr.luxetumbra.collections.CrystalType

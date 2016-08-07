@@ -10,6 +10,7 @@ item.luxetumbra:dayCrystal.name=Day Power Crystal
 item.luxetumbra:nightCrystal.name=Night Power Crystal
 item.luxetumbra:dayShield.name=Day Powere Energy Shield
 item.luxetumbra:nightShield.name=Night Powere Energy Shield
+item.luxetumbra:teleporter.name=Personal Teleporter
 
 # Commands
 luxetumbra:commands.setspelllevel.usage=setSpellLevel <Player> Add/Subtract <Amount>
@@ -17,4 +18,10 @@ luxetumbra:commands.setspelllevel.done=spell level is now
 
 # Misc
 luxetumbra:itemSpellLevel.spellLevel=Your current spell level is
-luxetumbra:altar:day:nopass=A voice yells out...'YOU SHALL NOT PASS...'
+luxetumbra:altar.day.nopass=A voice yells out...'YOU SHALL NOT PASS...'
+
+luxetumbra:teleporter.locationset=Location Set...
+
+luxetumbra:energyuse.nolevel=You do not meet the required spell level...
+luxetumbra:energyuse.nodaycrystal=You do not have a Day Crystal in your inventory...
+luxetumbra:energyuse.notenoughenergy=You do not have enough energy stored...
