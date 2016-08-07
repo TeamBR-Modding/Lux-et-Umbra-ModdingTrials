@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "luxetumbra:items/nightCrystalStage5"
+  },
+  "overrides": [
+    { "predicate": { "charge": 0.0 },  "model": "luxetumbra:item/nightCrystalStage5" },
+    { "predicate": { "charge": 0.22 }, "model": "luxetumbra:item/nightCrystalStage4" },
+    { "predicate": { "charge": 0.44 }, "model": "luxetumbra:item/nightCrystalStage3" },
+    { "predicate": { "charge": 0.66 }, "model": "luxetumbra:item/nightCrystalStage2" },
+    { "predicate": { "charge": 0.88 }, "model": "luxetumbra:item/nightCrystalStage1" },
+    { "predicate": { "charge": 1.00 }, "model": "luxetumbra:item/nightCrystalStage0" }
+  ]
+}

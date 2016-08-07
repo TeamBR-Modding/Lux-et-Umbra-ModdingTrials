@@ -1,0 +1,36 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "#crystalStage1" : "luxetumbra:crystalStage1",
+      "#crystalStage2" : "luxetumbra:crystalStage2",
+      "#crystalStage3" : "luxetumbra:crystalStage3",
+      "#crystalStage4" : "luxetumbra:crystalStage4"
+    },
+    "model": "luxetumbra:crystalStage1.obj"
+  },
+  "variants": {
+    "age" : {
+      "0" : {},
+      "1" : {},
+      "2" : {
+        "model" : "luxetumbra:crystalStage2.obj"
+      },
+      "3" : {
+        "model" : "luxetumbra:crystalStage2.obj"
+      },
+      "4" : {
+        "model" : "luxetumbra:crystalStage2.obj"
+      },
+      "5" : {
+        "model" : "luxetumbra:crystalStage3.obj"
+      },
+      "6" : {
+        "model" : "luxetumbra:crystalStage3.obj"
+      },
+      "7" : {
+        "model" : "luxetumbra:crystalStage4.obj"
+      }
+    }
+  }
+}

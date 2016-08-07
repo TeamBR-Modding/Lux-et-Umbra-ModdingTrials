@@ -43,8 +43,8 @@ if (build == null || build == '') {
     version = "${config.minecraft_version}-${config.mod_version}-B" + System.getenv("BUILD_NUMBER")
 }
 
-group= "com.teambr.projectdn" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "ProjectDN"
+group= "com.teambr.luxetumbra" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "LuxEtUmbra"
 
 minecraft {
     version = config.minecraft_version + "-" + config.forge_version

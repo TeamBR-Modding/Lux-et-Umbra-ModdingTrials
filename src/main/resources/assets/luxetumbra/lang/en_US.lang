@@ -1,0 +1,20 @@
+# Creative Tab
+itemGroup.tabLuxEtUmbra=Lux et Umbra
+
+# Blocks
+tile.luxetumbra:blockAltar.name=Altar
+
+# Items
+item.luxetumbra:spellLevelBook.name=Spell Level Book
+item.luxetumbra:dayCrystal.name=Day Power Crystal
+item.luxetumbra:nightCrystal.name=Night Power Crystal
+item.luxetumbra:dayShield.name=Day Powere Energy Shield
+item.luxetumbra:nightShield.name=Night Powere Energy Shield
+
+# Commands
+luxetumbra:commands.setspelllevel.usage=setSpellLevel <Player> Add/Subtract <Amount>
+luxetumbra:commands.setspelllevel.done=spell level is now
+
+# Misc
+luxetumbra:itemSpellLevel.spellLevel=Your current spell level is
+luxetumbra:altar:day:nopass=A voice yells out...'YOU SHALL NOT PASS...'
