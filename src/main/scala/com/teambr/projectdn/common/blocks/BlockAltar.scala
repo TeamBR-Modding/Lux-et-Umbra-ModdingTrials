@@ -9,11 +9,15 @@ import com.teambr.projectdn.common.tiles.TileAltar
 import com.teambr.projectdn.managers.BlockManager
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.resources.I18n
 import net.minecraft.entity.effect.EntityLightningBolt
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.MobEffects
 import net.minecraft.item.ItemStack
+import net.minecraft.potion.PotionEffect
 import net.minecraft.util._
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.text.TextComponentString
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.{Side, SideOnly}
 
@@ -39,22 +43,29 @@ class BlockAltar extends BaseBlock(Material.IRON, "blockAltar", classOf[TileAlta
 
             if (!player.isSneaking && altarType == EnumAlterType.NIGHT && player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).getSpellLevel > 0) {
                 player.setFire(10)
+                player.addPotionEffect(new PotionEffect(MobEffects.WITHER, 200))
+                player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 200))
                 return true
             } else if (!player.isSneaking && altarType == EnumAlterType.DAY && player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).getSpellLevel < 0) {
                 val entity = new EntityLightningBolt(world, player.getPosition.getX, player.getPosition.getY, player.getPosition.getZ, false)
                 world.addWeatherEffect(entity)
+                player.setFire(20)
+                player.setPositionAndUpdate(pos.getX, pos.getY + 10, pos.getZ)
+                player.addPotionEffect(new PotionEffect(MobEffects.LEVITATION, 100))
+                player.addChatComponentMessage(new TextComponentString(I18n.format("projectdn:altar:day:nopass")))
                 return true
             }
 
             if (heldItem == null && altar.getStackInSlot(0) != null) {
                 player.inventory.addItemStackToInventory(altar.getStackInSlot(0).copy)
                 altar.setStackInSlot(0, null)
+                world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3)
             } else if (altar.getStackInSlot(0) == null && heldItem != null) {
                 val item = heldItem.copy()
                 item.stackSize = 1
                 if (altar.insertItem(0, item, simulate = false) == null)
                     heldItem.stackSize -= 1
-                world.markBlockRangeForRenderUpdate(pos, pos)
+                world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3)
             } else if (player.isSneaking) {
                 NotificationHelper.addNotification(new Notification(new ItemStack(BlockManager.blockAltar), "Altar Status", altarType.toString))
             }

@@ -12,4 +12,5 @@ projectdn:commands.setspelllevel.usage=setSpellLevel <Player> Add/Subtract <Amou
 projectdn:commands.setspelllevel.done=spell level is now
 
 # Misc
-projectdn:itemSpellLevel:spellLevel=Your current spell level is
+projectdn:itemSpellLevel.spellLevel=Your current spell level is
+projectdn:altar:day:nopass=A voice yells out...'YOU SHALL NOT PASS...'

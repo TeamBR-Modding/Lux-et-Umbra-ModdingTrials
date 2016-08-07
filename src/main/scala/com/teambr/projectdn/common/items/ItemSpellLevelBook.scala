@@ -28,7 +28,7 @@ class ItemSpellLevelBook extends Item {
 
     override def onItemRightClick(itemStack: ItemStack, world: World, player: EntityPlayer, hand: EnumHand): ActionResult[ItemStack] = {
         if (!world.isRemote)
-            player.addChatComponentMessage(new TextComponentString(I18n.format("projectdn:itemSpellLevel:spellLevel") + " " +
+            player.addChatComponentMessage(new TextComponentString(I18n.format("projectdn:itemSpellLevel.spellLevel") + " " +
                     player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).getSpellLevel))
 
         new ActionResult(EnumActionResult.SUCCESS, itemStack)
