@@ -23,8 +23,15 @@ object AltarRecipes {
     private lazy val altarRecipes = new ArrayBuffer[AltarRecipe]
 
     def init(): Unit = {
+        // Crystals
         altarRecipes += new AltarRecipe(EnumAlterType.NEUTRAL, EnumAlterSubType.DAY, new ItemStack(Items.DIAMOND), new ItemStack(ItemManager.dayCrystal), 10.0F, 0)
         altarRecipes += new AltarRecipe(EnumAlterType.NEUTRAL ,EnumAlterSubType.NIGHT, new ItemStack(Items.EMERALD), new ItemStack(ItemManager.nightCrystal), 10.0F, 0)
+
+        // Shields
+        altarRecipes += new AltarRecipe(EnumAlterType.DAY, EnumAlterSubType.DAY, new ItemStack(Items.SHIELD), new ItemStack(ItemManager.dayShield), 2400.0F, 0)
+        altarRecipes += new AltarRecipe(EnumAlterType.NIGHT, EnumAlterSubType.NIGHT, new ItemStack(Items.SHIELD), new ItemStack(ItemManager.nightShield), 2400.0F, 0)
+
+        // Testing
         altarRecipes += new AltarRecipe(EnumAlterType.NIGHT, EnumAlterSubType.NIGHT, new ItemStack(Items.NETHER_STAR), new ItemStack(Items.DIAMOND_AXE), 10.0F, -3)
         altarRecipes += new AltarRecipe(EnumAlterType.DAY, EnumAlterSubType.DAY, new ItemStack(Items.NETHER_WART), new ItemStack(Items.DIAMOND_SWORD), 10.0F, 1)
     }
