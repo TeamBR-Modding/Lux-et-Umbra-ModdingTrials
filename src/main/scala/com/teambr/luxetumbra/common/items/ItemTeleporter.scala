@@ -45,6 +45,7 @@ class ItemTeleporter extends EnergyUserItem {
 
     override def onItemUse(stack: ItemStack, player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand,
                            facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult = {
+        if (world.isRemote) return EnumActionResult.SUCCESS
         if (player.isSneaking) {
             val nbt = new NBTTagCompound
             nbt.setInteger("X", pos.getX)
