@@ -4,12 +4,11 @@ import com.teambr.luxetumbra.LuxEtUmbra
 import com.teambr.luxetumbra.collections.CrystalType.crystalType
 import com.teambr.luxetumbra.common.items.traits.EnergyUserItem
 import com.teambr.luxetumbra.lib.Constants
-import net.minecraft.client.resources.I18n
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.item.{Item, ItemStack}
+import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.text.TextComponentString
+import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.{ActionResult, EnumActionResult, EnumFacing, EnumHand}
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.{Side, SideOnly}
@@ -52,7 +51,7 @@ class ItemTeleporter extends EnergyUserItem {
             nbt.setInteger("Y", pos.getY + 1)
             nbt.setInteger("Z", pos.getZ)
             stack.setTagCompound(nbt)
-            player.addChatComponentMessage(new TextComponentString(I18n.format("luxetumbra:teleporter.locationset")))
+            player.addChatComponentMessage(new TextComponentTranslation("luxetumbra:teleporter.locationset"))
         } else onItemRightClick(stack, world, player, hand)
         EnumActionResult.SUCCESS
     }

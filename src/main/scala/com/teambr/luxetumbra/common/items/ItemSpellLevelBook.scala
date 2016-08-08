@@ -3,12 +3,11 @@ package com.teambr.luxetumbra.common.items
 import com.teambr.luxetumbra.LuxEtUmbra
 import com.teambr.luxetumbra.capabilities.player.SpellLevelCapability
 import com.teambr.luxetumbra.lib.Constants
-import net.minecraft.client.resources.I18n
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.{Item, ItemStack}
-import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.TextComponentString
-import net.minecraft.util.{ActionResult, EnumActionResult, EnumFacing, EnumHand}
+import net.minecraft.util.text.translation.I18n
+import net.minecraft.util.{ActionResult, EnumActionResult, EnumHand}
 import net.minecraft.world.World
 
 /**
@@ -28,7 +27,7 @@ class ItemSpellLevelBook extends Item {
 
     override def onItemRightClick(itemStack: ItemStack, world: World, player: EntityPlayer, hand: EnumHand): ActionResult[ItemStack] = {
         if (!world.isRemote)
-            player.addChatComponentMessage(new TextComponentString(I18n.format("luxetumbra:itemSpellLevel.spellLevel") + " " +
+            player.addChatComponentMessage(new TextComponentString(I18n.translateToLocal("luxetumbra:itemSpellLevel.spellLevel") + " " +
                     player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).getSpellLevel))
 
         new ActionResult(EnumActionResult.SUCCESS, itemStack)
