@@ -24,18 +24,19 @@ trait EnergyUserItem extends Item {
     val ENERGY_REQUIRED: Int
     val MIN_SPELL_LEVEL: Int
 
-    def useEnergy(player: EntityPlayer, displayMessage : Boolean = true, doDrain : Boolean = true): Boolean = { //, energyType: CrystalType.crystalType, energyUsed: Int, simulate: Boolean):  Boolean = {
+    def useEnergy(player: EntityPlayer, displayMessage : Boolean = true, doSpellLevel : Boolean = true): Boolean = { //, energyType: CrystalType.crystalType, energyUsed: Int, simulate: Boolean):  Boolean = {
         if (player == null || ENERGY_REQUIRED == 0) return false
 
         val playerSpellLevel = player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).getSpellLevel
 
-        MAGIC_TYPE match {
-            case CrystalType.crystalType.DAY =>
-                player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).setSpellLevel(playerSpellLevel + 1)
-            case CrystalType.crystalType.NIGHT =>
-                player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).setSpellLevel(playerSpellLevel - 1)
-            case _ =>
-        }
+        if(doSpellLevel)
+            MAGIC_TYPE match {
+                case CrystalType.crystalType.DAY =>
+                    player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).setSpellLevel(playerSpellLevel + 1)
+                case CrystalType.crystalType.NIGHT =>
+                    player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).setSpellLevel(playerSpellLevel - 1)
+                case _ =>
+            }
 
         MAGIC_TYPE match {
             case CrystalType.crystalType.DAY =>

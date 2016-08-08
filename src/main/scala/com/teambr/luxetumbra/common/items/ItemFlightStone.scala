@@ -31,7 +31,7 @@ class ItemFlightStone extends EnergyUserItem {
 
     override def onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean): Unit = {
         entityIn match {
-            case player: EntityPlayer if useEnergy(player, displayMessage = false, doDrain = false) =>
+            case player: EntityPlayer if useEnergy(player, displayMessage = false, doSpellLevel = false) =>
                 if(!player.capabilities.allowFlying)
                     player.capabilities.allowFlying = true
             case _ =>
