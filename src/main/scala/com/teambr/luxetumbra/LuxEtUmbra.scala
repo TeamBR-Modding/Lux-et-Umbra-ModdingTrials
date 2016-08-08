@@ -9,8 +9,10 @@ import com.teambr.luxetumbra.common.CommonProxy
 import com.teambr.luxetumbra.lib.Constants
 import com.teambr.luxetumbra.managers.{BlockManager, ConfigManager, ItemManager}
 import com.teambr.luxetumbra.registries.AltarRecipes
+import com.teambr.luxetumbra.util.TimeUtils
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
+import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod.EventHandler
 import net.minecraftforge.fml.common.event.{FMLInitializationEvent, FMLPostInitializationEvent, FMLPreInitializationEvent, FMLServerStartingEvent}
 import net.minecraftforge.fml.common.{Mod, SidedProxy}
@@ -62,6 +64,7 @@ object LuxEtUmbra {
         WorldStructure.buildDefaultAlters()
         proxy.init()
         AltarRecipes.init()
+        MinecraftForge.EVENT_BUS.register(TimeUtils)
     }
 
     @EventHandler

@@ -5,11 +5,12 @@ import com.teambr.bookshelf.util.WorldUtils
 import com.teambr.luxetumbra.collections.WorldStructure.{EnumAlterSubType, EnumAlterType}
 import com.teambr.luxetumbra.collections.{AltarRecipe, WorldStructure}
 import com.teambr.luxetumbra.registries.AltarRecipes
+import com.teambr.luxetumbra.util.TimeUtils
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.monster.EntityZombie
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.util.EnumHand
+import net.minecraft.util.{EnumHand, EnumParticleTypes}
 
 /**
   * This file was created for Lux et Umbra
@@ -42,7 +43,7 @@ class TileAltar extends UpdatingTile with Inventory {
                 altarSubType = recipe.getAltarSubType
                 altarType = WorldStructure.getAlterType(worldObj, getPos)
             }
-        } else if (isWorking) {
+        } else if (isWorking && recipe != null) {
             if (chargeCount < recipe.getRequiredCharge) { //TODO check player spell level against spell
                 altarType match {
                     case EnumAlterType.DAY => chargeCount += worldObj.getSunBrightness(1.0F)
@@ -77,8 +78,8 @@ class TileAltar extends UpdatingTile with Inventory {
                 }
                 setStackInSlot(0, null)
                 reset()
-                worldObj.notifyBlockUpdate(getPos, worldObj.getBlockState(getPos), worldObj.getBlockState(getPos), 3)
             }
+            worldObj.notifyBlockUpdate(getPos, worldObj.getBlockState(getPos), worldObj.getBlockState(getPos), 3)
         }
     }
 
@@ -103,6 +104,31 @@ class TileAltar extends UpdatingTile with Inventory {
         else if (bounce < -0.05F)
             bounceDir = -bounceDir
         bounce += bounceDir
+
+        // Do Particles
+        if(isWorking) {
+            // Do item stuff
+            for (x <- 0 until 2)
+                worldObj.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE,
+                    getPos.getX + (0.75 - (worldObj.rand.nextFloat() / 2)),
+                    getPos.getY + (1.75 - (worldObj.rand.nextFloat() / 2)),
+                    getPos.getZ + (0.75 - (worldObj.rand.nextFloat() / 2)),
+                    0,
+                    0,
+                    0)
+
+            // Wave
+            if(TimeUtils.onSecond(1))
+                for(x <- 0 until 360 by 10) {
+                    worldObj.spawnParticle(EnumParticleTypes.REDSTONE,
+                        (getPos.getX + 0.5) + 5 * Math.cos(Math.toRadians(x)),
+                        getPos.getY,
+                        (getPos.getZ +  0.5) + 5 * Math.sin(Math.toRadians(x)),
+                        0,
+                        0,
+                        0)
+                }
+        }
     }
 
     override def onInventoryChanged(slot: Int): Unit = {
@@ -115,9 +141,11 @@ class TileAltar extends UpdatingTile with Inventory {
                 entity.motionZ = 0
                 entity.hoverStart = 0
                 entity.rotationYaw = 0
-            } else entity = null
+            } else {
+                entity = null
+                reset()
+            }
         }
-        reset()
     }
 
     override def initialSize: Int = 1
@@ -125,12 +153,14 @@ class TileAltar extends UpdatingTile with Inventory {
     override def readFromNBT(tag: NBTTagCompound): Unit = {
         super[TileEntity].readFromNBT(tag)
         super[Inventory].readFromNBT(tag)
+        isWorking = tag.getBoolean("isWorking")
         onInventoryChanged(0)
     }
 
     override def writeToNBT(tag: NBTTagCompound): NBTTagCompound = {
         super[TileEntity].writeToNBT(tag)
         super[Inventory].writeToNBT(tag)
+        tag.setBoolean("isWorking", isWorking)
         tag
     }
 }

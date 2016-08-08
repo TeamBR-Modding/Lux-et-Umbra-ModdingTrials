@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
 import net.minecraft.client.renderer.{GlStateManager, RenderHelper}
 import net.minecraft.entity.item.EntityItem
+import net.minecraft.item.ItemShield
 
 /**
   * This file was created for Lux et Umbra
@@ -36,11 +37,9 @@ class AltarEntityRenderer[T <: TileAltar] extends TileEntitySpecialRenderer[T] {
         GlStateManager.rotate(te.rotation + partialTicks, 0, 1, 0)
         GlStateManager.scale(1.3, 1.3, 1.3)
 
-        val dropHeight = if(Block.getBlockFromItem(te.getStackInSlot(0).getItem) != null) -0.05 else -0.18
+        val dropHeight = if(Block.getBlockFromItem(te.getStackInSlot(0).getItem) != null || te.entity.getEntityItem.getItem.isInstanceOf[ItemShield]) -0.05 else -0.18
 
         renderManager.doRenderEntity(item, 0.0, dropHeight + te.bounce, 0.0, 0.0F, 0, true)
-
-
 
         GlStateManager.popAttrib()
         GlStateManager.enableLighting()
