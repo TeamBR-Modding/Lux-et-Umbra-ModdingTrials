@@ -24,26 +24,34 @@ trait EnergyUserItem extends Item {
     val ENERGY_REQUIRED: Int
     val MIN_SPELL_LEVEL: Int
 
-    def useEnergy(player: EntityPlayer): Boolean = { //, energyType: CrystalType.crystalType, energyUsed: Int, simulate: Boolean):  Boolean = {
+    def useEnergy(player: EntityPlayer, displayMessage : Boolean = true): Boolean = { //, energyType: CrystalType.crystalType, energyUsed: Int, simulate: Boolean):  Boolean = {
         if (player == null || ENERGY_REQUIRED == 0) return false
 
         val playerSpellLevel = player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).getSpellLevel
 
         MAGIC_TYPE match {
             case CrystalType.crystalType.DAY =>
-                if (MIN_SPELL_LEVEL != 0 && playerSpellLevel < MIN_SPELL_LEVEL) {
+                player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).setSpellLevel(playerSpellLevel + 1)
+            case CrystalType.crystalType.NIGHT =>
+                player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).setSpellLevel(playerSpellLevel - 1)
+            case _ =>
+        }
+
+        MAGIC_TYPE match {
+            case CrystalType.crystalType.DAY =>
+                if (MIN_SPELL_LEVEL != 0 && playerSpellLevel < MIN_SPELL_LEVEL && displayMessage) {
                     player.addChatComponentMessage(new TextComponentTranslation("luxetumbra:energyuse.nolevel"))
                     return false
                 }
                 val slot = findStackInInventory(player, new ItemStack(ItemManager.dayCrystal))
-                if (slot == -1) {
+                if (slot == -1 && displayMessage) {
                     player.addChatComponentMessage(new TextComponentTranslation("luxetumbra:energyuse.nodaycrystal"))
                     return false
                 }
                 val stack = player.inventory.getStackInSlot(slot)
                 val item = stack.getItem.asInstanceOf[CrystalPower]
                 val actual = item.extractEnergy(stack, ENERGY_REQUIRED, simulate = true)
-                if (actual < ENERGY_REQUIRED) {
+                if (actual < ENERGY_REQUIRED  && displayMessage) {
                     player.addChatComponentMessage(new TextComponentTranslation("luxetumbra:energyuse.notenoughenergy"))
                     return false
                 } else {
@@ -51,19 +59,19 @@ trait EnergyUserItem extends Item {
                     return true
                 }
             case CrystalType.crystalType.NIGHT =>
-                if (MIN_SPELL_LEVEL != 0 && playerSpellLevel > MIN_SPELL_LEVEL) {
+                if (MIN_SPELL_LEVEL != 0 && playerSpellLevel > MIN_SPELL_LEVEL && displayMessage) {
                     player.addChatComponentMessage(new TextComponentTranslation("luxetumbra:energyuse.nolevel"))
                     return false
                 }
                 val slot = findStackInInventory(player, new ItemStack(ItemManager.nightCrystal))
-                if (slot == -1) {
+                if (slot == -1 && displayMessage) {
                     player.addChatComponentMessage(new TextComponentTranslation("luxetumbra:energyuse.nonightcrystal"))
                     return false
                 }
                 val stack = player.inventory.getStackInSlot(slot)
                 val item = stack.getItem.asInstanceOf[CrystalPower]
                 val actual = item.extractEnergy(stack, ENERGY_REQUIRED, simulate = true)
-                if (actual < ENERGY_REQUIRED) {
+                if (actual < ENERGY_REQUIRED && displayMessage) {
                     player.addChatComponentMessage(new TextComponentTranslation("luxetumbra:energyuse.notenoughenergy"))
                     return false
                 } else {

@@ -1,5 +1,6 @@
 package com.teambr.luxetumbra.common.items
 
+import com.teambr.bookshelf.client.gui.{GuiColor, GuiTextFormat}
 import com.teambr.luxetumbra.LuxEtUmbra
 import com.teambr.luxetumbra.collections.CrystalType.crystalType
 import com.teambr.luxetumbra.common.items.traits.EnergyUserItem
@@ -66,5 +67,6 @@ class ItemTeleporter extends EnergyUserItem {
             list.add("     Y: " + tag.getFloat("Y").toInt)
             list.add("     Z: " + tag.getFloat("Z").toInt)
         }
+        list.add(GuiTextFormat.ITALICS + "" + GuiColor.ORANGE + "Required Energy Level: " + MIN_SPELL_LEVEL)
     }
 }
