@@ -1,6 +1,7 @@
 package com.teambr.luxetumbra.api.jei.altar
 
 import java.util
+import java.util.Collections
 
 import com.teambr.luxetumbra.collections.WorldStructure.{EnumAlterSubType, EnumAlterType}
 import com.teambr.luxetumbra.managers.BlockManager
@@ -18,6 +19,10 @@ import net.minecraft.item.ItemStack
   * @since 8/7/2016
   */
 class JEIAltarRecipe(itemIn: ItemStack, itemOut: ItemStack, altarType: EnumAlterType, altarSubType: EnumAlterSubType, reqSpellLevel: Int) extends BlankRecipeWrapper {
+
+    override def getInputs: util.List[_] = Collections.singletonList(itemIn)
+
+    override def getOutputs: util.List[_] = Collections.singletonList(itemOut)
 
     def getInput: ItemStack = itemIn
 

@@ -230,6 +230,8 @@ class TileAltar extends UpdatingTile with Inventory {
         chargeCount = tag.getFloat("charge")
         currentRecipeDuration = tag.getFloat("maxCharge")
         dayRecipe = tag.getBoolean("dayRecipe")
+        if (getStackInSlot(0) != null)
+            recipe = AltarRecipes.getRecipe(WorldStructure.getAlterType(worldObj, getPos), getStackInSlot(0))
         onInventoryChanged(0)
     }
 

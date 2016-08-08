@@ -23,17 +23,32 @@ object AltarRecipes {
     private lazy val altarRecipes = new ArrayBuffer[AltarRecipe]
 
     def init(): Unit = {
+        //Book
+        altarRecipes += new AltarRecipe(EnumAlterType.NEUTRAL, EnumAlterSubType.DAY, new ItemStack(Items.BOOK), new ItemStack(ItemManager.spellLevelBook), 1500.0F, 0)
+        altarRecipes += new AltarRecipe(EnumAlterType.NEUTRAL ,EnumAlterSubType.NIGHT, new ItemStack(Items.BOOK), new ItemStack(ItemManager.spellLevelBook), 1500.0F, 0)
+
         // Crystals
-        altarRecipes += new AltarRecipe(EnumAlterType.NEUTRAL, EnumAlterSubType.DAY, new ItemStack(Items.DIAMOND), new ItemStack(ItemManager.dayCrystal), 10.0F, 0)
-        altarRecipes += new AltarRecipe(EnumAlterType.NEUTRAL ,EnumAlterSubType.NIGHT, new ItemStack(Items.EMERALD), new ItemStack(ItemManager.nightCrystal), 10.0F, 0)
+        altarRecipes += new AltarRecipe(EnumAlterType.NEUTRAL, EnumAlterSubType.DAY, new ItemStack(Items.DIAMOND), new ItemStack(ItemManager.dayCrystal), 2400.0F, 0)
+        altarRecipes += new AltarRecipe(EnumAlterType.NEUTRAL ,EnumAlterSubType.NIGHT, new ItemStack(Items.EMERALD), new ItemStack(ItemManager.nightCrystal), 2400.0F, 0)
 
         // Shields
         altarRecipes += new AltarRecipe(EnumAlterType.DAY, EnumAlterSubType.DAY, new ItemStack(Items.SHIELD), new ItemStack(ItemManager.dayShield), 2400.0F, 0)
         altarRecipes += new AltarRecipe(EnumAlterType.NIGHT, EnumAlterSubType.NIGHT, new ItemStack(Items.SHIELD), new ItemStack(ItemManager.nightShield), 2400.0F, 0)
 
+        //Stones
+        //Flight
+        altarRecipes += new AltarRecipe(EnumAlterType.NIGHT, EnumAlterSubType.NIGHT, new ItemStack(Items.NETHER_STAR), new ItemStack(ItemManager.flightStone), 2400.0F, 0)
+        //Food
+        altarRecipes += new AltarRecipe(EnumAlterType.DAY, EnumAlterSubType.DAY, new ItemStack(Items.GOLDEN_CARROT), new ItemStack(ItemManager.feeder), 2400.0F, 0)
+        //Fire
+        altarRecipes += new AltarRecipe(EnumAlterType.NIGHT, EnumAlterSubType.NIGHT, new ItemStack(Items.FIRE_CHARGE), new ItemStack(ItemManager.fireStone), 2400.0F, 0)
+        //Teleporter
+        altarRecipes += new AltarRecipe(EnumAlterType.DAY, EnumAlterSubType.DAY, new ItemStack(Items.GHAST_TEAR), new ItemStack(ItemManager.teleporter), 2400.0F, 0)
+
         // Testing
-        altarRecipes += new AltarRecipe(EnumAlterType.NIGHT, EnumAlterSubType.NIGHT, new ItemStack(Items.NETHER_STAR), new ItemStack(Items.DIAMOND_AXE), 10.0F, -3)
+        /*altarRecipes += new AltarRecipe(EnumAlterType.NIGHT, EnumAlterSubType.NIGHT, new ItemStack(Items.NETHER_STAR), new ItemStack(Items.DIAMOND_AXE), 10.0F, -3)
         altarRecipes += new AltarRecipe(EnumAlterType.DAY, EnumAlterSubType.DAY, new ItemStack(Items.NETHER_WART), new ItemStack(Items.DIAMOND_SWORD), 10.0F, 1)
+        altarRecipes += new AltarRecipe(EnumAlterType.DAY, EnumAlterSubType.DAY, new ItemStack(Items.STICK), new ItemStack(Items.DIAMOND), 10.0F, 1)*/
     }
 
     def isItemValid(enumAlterType: EnumAlterType, itemStack: ItemStack): Boolean = {

@@ -8,7 +8,7 @@ import com.teambr.luxetumbra.commands.{DebugAlter, SetSpellLevel}
 import com.teambr.luxetumbra.common.CommonProxy
 import com.teambr.luxetumbra.events.PlayerEvents
 import com.teambr.luxetumbra.lib.Constants
-import com.teambr.luxetumbra.managers.{BlockManager, ConfigManager, ItemManager}
+import com.teambr.luxetumbra.managers.{BlockManager, ConfigManager, CraftingRecipeManager, ItemManager}
 import com.teambr.luxetumbra.registries.AltarRecipes
 import com.teambr.luxetumbra.util.TimeUtils
 import net.minecraft.creativetab.CreativeTabs
@@ -58,6 +58,7 @@ object LuxEtUmbra {
         ItemManager.preInit()
         proxy.preInit()
         SpellLevelCapability.register()
+        CraftingRecipeManager.preInit()
     }
 
     @EventHandler

@@ -12,6 +12,6 @@ package com.teambr.luxetumbra.api.jei
   */
 object LuxEtUmbraCategoryUID {
 
-    final lazy val ALTAR: String = "luxetumbra:altar"
+    final lazy val ALTAR: String = "luxetumbra.altar"
 
 }

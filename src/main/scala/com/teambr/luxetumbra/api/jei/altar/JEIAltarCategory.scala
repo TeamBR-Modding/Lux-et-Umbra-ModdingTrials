@@ -21,13 +21,13 @@ import net.minecraft.util.text.translation.I18n
   */
 class JEIAltarCategory extends IRecipeCategory[IRecipeWrapper] {
 
-    val location = new ResourceLocation(Constants.MOD_ID, "textures/jei/jei.png")
-    val arrow = new GuiComponentArrowJEI(59, 21, LuxEtUmbraPlugin.jeiHelpers)
+    lazy val location = new ResourceLocation(Constants.MOD_ID, "textures/jei/jei.png")
+    lazy val arrow = new GuiComponentArrowJEI(59, 21, LuxEtUmbraPlugin.jeiHelpers)
 
-    val slotInput = new SlotDrawable(31, 20)
-    val slotOutput = new SlotDrawable(96, 20)
+    lazy val slotInput = new SlotDrawable(31, 20)
+    lazy val slotOutput = new SlotDrawable(96, 20)
 
-    val background: IDrawable = LuxEtUmbraPlugin.jeiHelpers.getGuiHelper.createDrawable(location, 0, 0, 170, 60)
+    lazy val background: IDrawable = LuxEtUmbraPlugin.jeiHelpers.getGuiHelper.createDrawable(location, 0, 0, 170, 60)
 
     override def getBackground: IDrawable = background
 
@@ -35,7 +35,7 @@ class JEIAltarCategory extends IRecipeCategory[IRecipeWrapper] {
         val stacks = recipeLayout.getItemStacks
         stacks.init(0, true, 31, 20)
         stacks.init(1, false, 96, 20)
-        stacks.init(2, false, 57, 40)
+        stacks.init(2, false, 60, 40)
 
         recipeWrapper match {
             case altar: JEIAltarRecipe =>
@@ -55,5 +55,5 @@ class JEIAltarCategory extends IRecipeCategory[IRecipeWrapper] {
 
     override def getTitle: String = I18n.translateToLocal("tile.luxetumbra:blockAltar.name")
 
-    override def getUid: String = LuxEtUmbraCategoryUID.ALTAR
+    override def getUid: String = Constants.MOD_ID + ":altar"
 }

@@ -24,7 +24,7 @@ import net.minecraftforge.fml.relauncher.{Side, SideOnly}
 class ItemFlightStone extends EnergyUserItem {
     override val MAGIC_TYPE: crystalType = crystalType.DAY
     override val ENERGY_REQUIRED: Int = 1
-    override val MIN_SPELL_LEVEL: Int = 300
+    override val MIN_SPELL_LEVEL: Int = 100
 
     setUnlocalizedName(Constants.MOD_ID + ":flightStone")
     setCreativeTab(LuxEtUmbra.luxEtUmbra)

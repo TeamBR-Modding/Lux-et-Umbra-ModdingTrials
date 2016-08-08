@@ -1,6 +1,7 @@
 package com.teambr.luxetumbra.api.jei.altar
 
 import com.teambr.luxetumbra.api.jei.LuxEtUmbraCategoryUID
+import com.teambr.luxetumbra.lib.Constants
 import mezz.jei.api.recipe.{IRecipeHandler, IRecipeWrapper}
 
 /**
@@ -17,9 +18,9 @@ class JEIAltarRecipeHandler extends IRecipeHandler[JEIAltarRecipe] {
 
     override def getRecipeWrapper(recipe: JEIAltarRecipe): IRecipeWrapper = recipe
 
-    override def getRecipeCategoryUid: String = LuxEtUmbraCategoryUID.ALTAR
+    override def getRecipeCategoryUid: String = Constants.MOD_ID + ":altar"
 
-    override def getRecipeCategoryUid(recipe: JEIAltarRecipe): String = LuxEtUmbraCategoryUID.ALTAR
+    override def getRecipeCategoryUid(recipe: JEIAltarRecipe): String = Constants.MOD_ID + ":altar"
 
     override def isRecipeValid(recipe: JEIAltarRecipe): Boolean = true
 
