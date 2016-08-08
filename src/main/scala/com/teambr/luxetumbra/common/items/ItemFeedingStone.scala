@@ -34,31 +34,35 @@ class ItemFeedingStone extends EnergyUserItem {
     setCreativeTab(LuxEtUmbra.luxEtUmbra)
 
     override def onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean): Unit = {
-    if(worldIn.rand.nextInt(100) == 0) {
-    entityIn match {
-    case player: EntityPlayer =>
-    val slot = findStackInInventory(player, new ItemStack(ItemManager.dayCrystal))
-    if (slot == -1) {
-    return
-}
-    val stack = player.inventory.getStackInSlot(slot)
-    val item = stack.getItem.asInstanceOf[CrystalPower]
-    val actual = item.extractEnergy(stack, ENERGY_REQUIRED, simulate = true)
-    if (actual > 0) {
-    if (player.getFoodStats.getFoodLevel <= 10) {
-    player.getFoodStats.addStats(20, 20F)
-    worldIn.playSound(player, player.getPosition, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F)
-    useEnergy(player, displayMessage = false)
-}
-}
-    case _ =>
-}
-}
-}
+        if(worldIn.rand.nextInt(100) == 0) {
+            entityIn match {
+                case player: EntityPlayer =>
+                    val slot = findStackInInventory(player, new ItemStack(ItemManager.dayCrystal))
+                    if (slot == -1) {
+                        return
+                    }
+                    val stack = player.inventory.getStackInSlot(slot)
+                    val item = stack.getItem.asInstanceOf[CrystalPower]
+                    val actual = item.extractEnergy(stack, ENERGY_REQUIRED, simulate = true)
+                    if (actual > 0) {
+                        if (player.getFoodStats.getFoodLevel <= 10) {
+                            player.getFoodStats.addStats(20, 20F)
+                            worldIn.playSound(player, player.getPosition, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F)
+                            useEnergy(player, displayMessage = false)
+                        }
+                    }
+                case _ =>
+            }
+        }
+    }
 
     @SideOnly(Side.CLIENT)
     override def addInformation(stack: ItemStack, player: EntityPlayer, list: java.util.List[String], boolean: Boolean): Unit = {
-    list.add("Automatically Feeds the Player")
-    list.add(GuiTextFormat.ITALICS + "" + GuiColor.ORANGE + "Required Spell Level: " + MIN_SPELL_LEVEL)
-}
+        list.add("Automatically Feeds the Player")
+        list.add(GuiTextFormat.ITALICS + "" + GuiColor.ORANGE + "Required Spell Level: " + MIN_SPELL_LEVEL)
+    }
+
+    override def onDroppedByPlayer(item: ItemStack, player: EntityPlayer): Boolean = {
+        super.onDroppedByPlayer(item, player)
+    }
 }
