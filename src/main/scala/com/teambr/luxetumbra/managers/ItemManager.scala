@@ -28,6 +28,7 @@ object ItemManager {
     // Stones
     lazy val teleporter = new ItemTeleporter
     lazy val feeder = new ItemFeedingStone
+    lazy val fireStone = new ItemFireStone
 
     def preInit(): Unit = {
         registerItem(spellLevelBook, "spellLevelBook")
@@ -41,6 +42,7 @@ object ItemManager {
 
         registerItem(teleporter, "teleporter")
         registerItem(feeder, "feedingStone")
+        registerItem(fireStone, "fireStone")
     }
 
     def registerItem(item: Item, name: String, oreDict: String): Item = {

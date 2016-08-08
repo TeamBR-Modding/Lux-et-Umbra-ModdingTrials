@@ -12,6 +12,7 @@ item.luxetumbra:dayShield.name=Day Energy Shield
 item.luxetumbra:nightShield.name=Night Energy Shield
 item.luxetumbra:teleporter.name=Stone of Return
 item.luxetumbra:feedingStone.name=Stone of Feeding
+item.luxetumbra:fireStone.name=Stone of Fireballs
 
 # Commands
 luxetumbra:commands.setspelllevel.usage=setSpellLevel <Player> Add/Subtract <Amount>

@@ -29,6 +29,7 @@ object ItemRenderManager {
         registerItem(ItemManager.nightShield)
         registerItem(ItemManager.teleporter)
         registerItem(ItemManager.feeder)
+        registerItem(ItemManager.fireStone)
     }
 
     def registerItem(item: Item): Unit = {

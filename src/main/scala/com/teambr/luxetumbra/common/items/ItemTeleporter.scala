@@ -67,6 +67,6 @@ class ItemTeleporter extends EnergyUserItem {
             list.add("     Y: " + tag.getFloat("Y").toInt)
             list.add("     Z: " + tag.getFloat("Z").toInt)
         }
-        list.add(GuiTextFormat.ITALICS + "" + GuiColor.ORANGE + "Required Energy Level: " + MIN_SPELL_LEVEL)
+        list.add(GuiTextFormat.ITALICS + "" + GuiColor.ORANGE + "Required Spell Level: " + MIN_SPELL_LEVEL)
     }
 }
