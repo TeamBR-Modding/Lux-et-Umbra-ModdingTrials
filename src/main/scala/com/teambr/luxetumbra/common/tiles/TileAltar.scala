@@ -8,9 +8,10 @@ import com.teambr.luxetumbra.registries.AltarRecipes
 import com.teambr.luxetumbra.util.TimeUtils
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.monster.EntityZombie
+import net.minecraft.init.SoundEvents
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.util.{EnumHand, EnumParticleTypes}
+import net.minecraft.util._
 
 /**
   * This file was created for Lux et Umbra
@@ -34,6 +35,8 @@ class TileAltar extends UpdatingTile with Inventory {
     var rotation = 0
     var bounce = 0F
     var bounceDir = 0.001F
+    var currentRecipeDuration = 0F
+    var dayRecipe = true
 
     override def onServerTick(): Unit = {
         if (!isWorking && getStackInSlot(0) != null) {
@@ -44,6 +47,9 @@ class TileAltar extends UpdatingTile with Inventory {
                 altarType = WorldStructure.getAlterType(worldObj, getPos)
             }
         } else if (isWorking && recipe != null) {
+            if(TimeUtils.onSecond(10))
+                worldObj.playSound(null, getPos, SoundEvents.AMBIENT_CAVE, SoundCategory.BLOCKS, 0.3F, 0.3F)
+
             if (chargeCount < recipe.getRequiredCharge) { //TODO check player spell level against spell
                 altarType match {
                     case EnumAlterType.DAY => chargeCount += worldObj.getSunBrightness(1.0F)
@@ -64,8 +70,9 @@ class TileAltar extends UpdatingTile with Inventory {
                     case _ =>
                 }
             } else {
+                worldObj.playSound(null, getPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, SoundCategory.BLOCKS, 0.3F, 0.3F)
                 if (altarSubType == EnumAlterSubType.DAY)
-                    WorldUtils.dropStack(getWorld, recipe.getOutputStack.copy(), getPos)
+                    WorldUtils.dropStack(getWorld, recipe.getOutputStack.copy(), getPos.offset(EnumFacing.UP))
                 else {
                     val entity = new EntityZombie(worldObj) //TODO higher recipes more armor
                     entity.setHeldItem(EnumHand.MAIN_HAND, recipe.getOutputStack.copy())
@@ -117,17 +124,83 @@ class TileAltar extends UpdatingTile with Inventory {
                     0,
                     0)
 
+            var paricle = if(dayRecipe) EnumParticleTypes.END_ROD else EnumParticleTypes.FLAME
             // Wave
-            if(TimeUtils.onSecond(1))
-                for(x <- 0 until 360 by 10) {
-                    worldObj.spawnParticle(EnumParticleTypes.REDSTONE,
-                        (getPos.getX + 0.5) + 5 * Math.cos(Math.toRadians(x)),
+            if(TimeUtils.onSecond(1)) {
+                // Current Progress
+                val radius = (chargeCount * 5) / currentRecipeDuration
+                for (x <- 0 until 360 by 10) {
+                    worldObj.spawnParticle(EnumParticleTypes.DRAGON_BREATH,
+                        (getPos.getX + 0.5) + (5 - radius) * Math.cos(Math.toRadians(x)),
                         getPos.getY,
-                        (getPos.getZ +  0.5) + 5 * Math.sin(Math.toRadians(x)),
+                        (getPos.getZ + 0.5) + (5 - radius) * Math.sin(Math.toRadians(x)),
                         0,
                         0,
                         0)
                 }
+
+                // Outer Ring
+                for (x <- 0 until 360 by 10) {
+                    worldObj.spawnParticle(paricle,
+                        (getPos.getX + 0.5) + 5 * Math.cos(Math.toRadians(x)),
+                        getPos.getY + 0.5,
+                        (getPos.getZ + 0.5) + 5 * Math.sin(Math.toRadians(x)),
+                        0,
+                        0.1,
+                        0)
+                }
+
+                // Ring 4
+                if(radius >= 1)
+                    for (x <- 0 until 360 by 10) {
+                        worldObj.spawnParticle(paricle,
+                            (getPos.getX + 0.5) + 4 * Math.cos(Math.toRadians(x)),
+                            getPos.getY + 0.5,
+                            (getPos.getZ + 0.5) + 4 * Math.sin(Math.toRadians(x)),
+                            0,
+                            0.080,
+                            0)
+                    }
+
+
+                // Ring 3
+                if(radius >= 2)
+                    for (x <- 0 until 360 by 10) {
+                        worldObj.spawnParticle(paricle,
+                            (getPos.getX + 0.5) + 3 * Math.cos(Math.toRadians(x)),
+                            getPos.getY + 0.5,
+                            (getPos.getZ + 0.5) + 3 * Math.sin(Math.toRadians(x)),
+                            0,
+                            0.06,
+                            0)
+                    }
+
+
+                // Ring 2
+                if(radius >= 3)
+                    for (x <- 0 until 360 by 10) {
+                        worldObj.spawnParticle(paricle,
+                            (getPos.getX + 0.5) + 2 * Math.cos(Math.toRadians(x)),
+                            getPos.getY + 0.5,
+                            (getPos.getZ + 0.5) + 2 * Math.sin(Math.toRadians(x)),
+                            0,
+                            0.04,
+                            0)
+                    }
+
+
+                // Ring 1
+                if(radius >= 4)
+                    for (x <- 0 until 360 by 10) {
+                        worldObj.spawnParticle(paricle,
+                            (getPos.getX + 0.5) + 1 * Math.cos(Math.toRadians(x)),
+                            getPos.getY + 0.5,
+                            (getPos.getZ + 0.5) + 1 * Math.sin(Math.toRadians(x)),
+                            0,
+                            0.02,
+                            0)
+                    }
+            }
         }
     }
 
@@ -154,6 +227,9 @@ class TileAltar extends UpdatingTile with Inventory {
         super[TileEntity].readFromNBT(tag)
         super[Inventory].readFromNBT(tag)
         isWorking = tag.getBoolean("isWorking")
+        chargeCount = tag.getFloat("charge")
+        currentRecipeDuration = tag.getFloat("maxCharge")
+        dayRecipe = tag.getBoolean("dayRecipe")
         onInventoryChanged(0)
     }
 
@@ -161,6 +237,11 @@ class TileAltar extends UpdatingTile with Inventory {
         super[TileEntity].writeToNBT(tag)
         super[Inventory].writeToNBT(tag)
         tag.setBoolean("isWorking", isWorking)
+        if(recipe != null) {
+            tag.setFloat("charge", chargeCount)
+            tag.setFloat("maxCharge", recipe.getRequiredCharge)
+            tag.setBoolean("dayRecipe", recipe.getAltarType == EnumAlterType.DAY || recipe.getAltarSubType == EnumAlterSubType.DAY)
+        }
         tag
     }
 }
