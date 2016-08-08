@@ -33,8 +33,11 @@ class PlayerEvents {
                 val stack = event.player.inventory.getStackInSlot(slot)
                 val item = stack.getItem.asInstanceOf[CrystalPower]
                 val actual = item.extractEnergy(stack, 1, simulate = true)
-                if(actual <= 0)
+                if(actual <= 0) {
+                    event.player.capabilities.allowFlying = false
+                    event.player.capabilities.isFlying = false
                     return
+                }
             }
             if(hadFlight && !event.player.isCreative) {
                 event.player.capabilities.allowFlying = false
