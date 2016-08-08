@@ -22,6 +22,10 @@ repositories {
         name 'DVS1 Maven FS'
         url "http://dvs1.progwml6.com/files/maven"
     }
+    maven { // The repo from which to get waila
+        name "Mobius Repo"
+        url "http://mobiusstrip.eu/maven"
+    }
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -46,6 +50,9 @@ if (build == null || build == '') {
 group= "com.teambr.luxetumbra" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "LuxEtUmbra"
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 minecraft {
     version = config.minecraft_version + "-" + config.forge_version
     runDir = "run"
@@ -65,6 +72,7 @@ configurations {
 dependencies {
 	deobfCompile "mezz.jei:jei_${config.minecraft_version}:${config.JEI_version}"
 	compile group: "com.teambr.bookshelf", name: "Bookshelf-API", version: "1.10.2-3.2.2-B2", classifier: "dev"
+    compile "mcp.mobius.waila:Waila:${config.WAILA_version}:dev"
 }
 
 task devJar(type: Jar, dependsOn: 'classes') {

@@ -7,7 +7,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
 /**
@@ -38,7 +38,7 @@ public class DebugAlter extends CommandBase {
 
         BlockPos center = player.getPosition();
 
-        player.addChatMessage(new TextComponentString(WorldStructure.getAlterType(world, center).toString()));
+        player.addChatMessage(new TextComponentTranslation(WorldStructure.getAlterType(world, center).toString()));
     }
 
     @Override

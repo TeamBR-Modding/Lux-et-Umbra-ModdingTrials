@@ -9,7 +9,6 @@ import com.teambr.luxetumbra.common.tiles.TileAltar
 import com.teambr.luxetumbra.managers.BlockManager
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.resources.I18n
 import net.minecraft.entity.effect.EntityLightningBolt
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.MobEffects
@@ -17,7 +16,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util._
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.text.TextComponentString
+import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.{Side, SideOnly}
 
@@ -52,7 +51,7 @@ class BlockAltar extends BaseBlock(Material.IRON, "blockAltar", classOf[TileAlta
                 player.setFire(20)
                 player.setPositionAndUpdate(pos.getX, pos.getY + 10, pos.getZ)
                 player.addPotionEffect(new PotionEffect(MobEffects.LEVITATION, 100))
-                player.addChatComponentMessage(new TextComponentString(I18n.format("luxetumbra:altar.day.nopass")))
+                player.addChatComponentMessage(new TextComponentTranslation("luxetumbra:altar.day.nopass"))
                 return true
             }
 

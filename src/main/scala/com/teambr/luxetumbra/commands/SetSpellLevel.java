@@ -1,7 +1,6 @@
 package com.teambr.luxetumbra.commands;
 
 import com.teambr.luxetumbra.capabilities.player.SpellLevelCapability;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -10,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.translation.I18n;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +33,7 @@ public class SetSpellLevel extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return I18n.format("luxetumbra:commands.setspelllevel.usage");
+        return I18n.translateToLocal("luxetumbra:commands.setspelllevel.usage");
     }
 
     @Override
@@ -51,7 +51,7 @@ public class SetSpellLevel extends CommandBase {
         else
             throw new WrongUsageException("luxetumbra:commands.setspelllevel.usage");
 
-        sender.addChatMessage(new TextComponentString(args[0] + "'s " + I18n.format("luxetumbra:commands.setspelllevel.done") + " "
+        sender.addChatMessage(new TextComponentString(args[0] + "'s " + I18n.translateToLocal("luxetumbra:commands.setspelllevel.done") + " "
                 + player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).getSpellLevel()));
 
     }

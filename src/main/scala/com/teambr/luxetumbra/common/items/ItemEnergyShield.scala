@@ -4,10 +4,10 @@ import com.teambr.luxetumbra.LuxEtUmbra
 import com.teambr.luxetumbra.lib.Constants
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
-import net.minecraft.client.resources.I18n
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.{ItemShield, ItemStack}
 import net.minecraft.tileentity.TileEntity
+import net.minecraft.util.text.translation.I18n
 
 /**
   * This file was created for Lux et Umbra
@@ -29,7 +29,7 @@ class ItemEnergyShield(name : String) extends ItemShield {
     override def getIsRepairable(toRepair: ItemStack, repair: ItemStack): Boolean = false
 
     override def getItemStackDisplayName(stack: ItemStack): String =
-        ("" + I18n.format(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim
+        ("" + I18n.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim
 }
 
 // Just used to bind a TESR to the itemstack. lol
