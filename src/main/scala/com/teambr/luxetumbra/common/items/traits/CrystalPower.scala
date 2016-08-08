@@ -1,6 +1,7 @@
 package com.teambr.luxetumbra.common.items.traits
 
 import com.teambr.luxetumbra.LuxEtUmbra
+import com.teambr.luxetumbra.capabilities.player.SpellLevelCapability
 import com.teambr.luxetumbra.collections.CrystalType
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer

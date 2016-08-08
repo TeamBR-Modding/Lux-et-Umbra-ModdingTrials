@@ -6,11 +6,12 @@ tile.luxetumbra:blockAltar.name=Power Altar
 
 # Items
 item.luxetumbra:spellLevelBook.name=Spell Level Book
-item.luxetumbra:dayCrystal.name=Day Power Crystal
-item.luxetumbra:nightCrystal.name=Night Power Crystal
-item.luxetumbra:dayShield.name=Day Power Energy Shield
-item.luxetumbra:nightShield.name=Night Power Energy Shield
-item.luxetumbra:teleporter.name=Personal Teleporter
+item.luxetumbra:dayCrystal.name=Day Crystal
+item.luxetumbra:nightCrystal.name=Night Crystal
+item.luxetumbra:dayShield.name=Day Energy Shield
+item.luxetumbra:nightShield.name=Night Energy Shield
+item.luxetumbra:teleporter.name=Stone of Return
+item.luxetumbra:feedingStone.name=Stone of Feeding
 
 # Commands
 luxetumbra:commands.setspelllevel.usage=setSpellLevel <Player> Add/Subtract <Amount>
@@ -24,5 +25,7 @@ luxetumbra:teleporter.locationset=Location Set...
 
 luxetumbra:energyuse.nolevel=You do not meet the required spell level...
 luxetumbra:energyuse.nodaycrystal=You do not have a Day Crystal in your inventory...
-luxetumbra:energyuse.nonightcrystal=You do not have a Day Crystal in your inventory...
+luxetumbra:energyuse.nonightcrystal=You do not have a Night Crystal in your inventory...
 luxetumbra:energyuse.notenoughenergy=You do not have enough energy stored...
+
+luxetumbra:levelRequired=Energy Level Required:
