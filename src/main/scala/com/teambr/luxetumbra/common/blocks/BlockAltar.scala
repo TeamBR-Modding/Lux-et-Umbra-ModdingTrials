@@ -1,12 +1,10 @@
 package com.teambr.luxetumbra.common.blocks
 
 import com.teambr.bookshelf.common.blocks.traits.DropsItems
-import com.teambr.bookshelf.notification.{Notification, NotificationHelper}
 import com.teambr.luxetumbra.capabilities.player.SpellLevelCapability
 import com.teambr.luxetumbra.collections.WorldStructure
 import com.teambr.luxetumbra.collections.WorldStructure.EnumAlterType
 import com.teambr.luxetumbra.common.tiles.TileAltar
-import com.teambr.luxetumbra.managers.BlockManager
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.effect.EntityLightningBolt
@@ -66,7 +64,7 @@ class BlockAltar extends BaseBlock(Material.IRON, "blockAltar", classOf[TileAlta
                     heldItem.stackSize -= 1
                 world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3)
             } else if (player.isSneaking) {
-                NotificationHelper.addNotification(new Notification(new ItemStack(BlockManager.blockAltar), "Altar Status", altarType.toString))
+                //NotificationHelper.addNotification(new Notification(new ItemStack(BlockManager.blockAltar), "Altar Status", altarType.toString)) //TODO
             }
         }
         true

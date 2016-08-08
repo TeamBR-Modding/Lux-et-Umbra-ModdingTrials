@@ -40,53 +40,53 @@ class TileAltar extends UpdatingTile with Inventory {
 
     override def onServerTick(): Unit = {
         if (!isWorking && getStackInSlot(0) != null) {
-            recipe = AltarRecipes.getRecipe(WorldStructure.getAlterType(worldObj, getPos), getStackInSlot(0))
+            recipe = AltarRecipes.getRecipe(WorldStructure.getAlterType(getWorld, getPos), getStackInSlot(0))
             if (recipe != null) {
                 isWorking = true
                 altarSubType = recipe.getAltarSubType
-                altarType = WorldStructure.getAlterType(worldObj, getPos)
+                altarType = WorldStructure.getAlterType(getWorld, getPos)
             }
         } else if (isWorking && recipe != null) {
             if(TimeUtils.onSecond(10))
-                worldObj.playSound(null, getPos, SoundEvents.AMBIENT_CAVE, SoundCategory.BLOCKS, 0.3F, 0.3F)
+                getWorld.playSound(null, getPos, SoundEvents.AMBIENT_CAVE, SoundCategory.BLOCKS, 0.3F, 0.3F)
 
             if (chargeCount < recipe.getRequiredCharge) { //TODO check player spell level against spell
                 altarType match {
-                    case EnumAlterType.DAY => chargeCount += worldObj.getSunBrightness(1.0F)
+                    case EnumAlterType.DAY => chargeCount += getWorld.getSunBrightnessFactor(1.0F)
                     case EnumAlterType.NEUTRAL =>
                         altarSubType match {
                             case EnumAlterSubType.DAY =>
-                                if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime < 13805 || worldObj.getWorldTime > 22550))
-                                    chargeCount += worldObj.getSunBrightness(1.0F)
+                                if (getWorld.canSeeSky(getPos) && (getWorld.getWorldTime < 13805 || getWorld.getWorldTime > 22550))
+                                    chargeCount += getWorld.getSunBrightnessFactor(1.0F)
                             case EnumAlterSubType.NIGHT =>
-                                if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime > 13805 && worldObj.getWorldTime < 22550))
-                                    chargeCount += worldObj.getCurrentMoonPhaseFactor
+                                if (getWorld.canSeeSky(getPos) && (getWorld.getWorldTime > 13805 && getWorld.getWorldTime < 22550))
+                                    chargeCount += getWorld.getCurrentMoonPhaseFactor
                             case _ =>
                         }
                     case EnumAlterType.NIGHT =>
-                        if (worldObj.canSeeSky(getPos) && (worldObj.getWorldTime < 13805 || worldObj.getWorldTime > 22550))
-                            chargeCount += worldObj.getCurrentMoonPhaseFactor * 0.25F
-                        else chargeCount += worldObj.getCurrentMoonPhaseFactor
+                        if (getWorld.canSeeSky(getPos) && (getWorld.getWorldTime < 13805 || getWorld.getWorldTime > 22550))
+                            chargeCount += getWorld.getCurrentMoonPhaseFactor * 0.25F
+                        else chargeCount += getWorld.getCurrentMoonPhaseFactor
                     case _ =>
                 }
             } else {
-                worldObj.playSound(null, getPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, SoundCategory.BLOCKS, 0.3F, 0.3F)
+                getWorld.playSound(null, getPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, SoundCategory.BLOCKS, 0.3F, 0.3F)
                 if (altarSubType == EnumAlterSubType.DAY)
                     WorldUtils.dropStack(getWorld, recipe.getOutputStack.copy(), getPos.offset(EnumFacing.UP))
                 else {
-                    val entity = new EntityZombie(worldObj) //TODO higher recipes more armor
+                    val entity = new EntityZombie(getWorld) //TODO higher recipes more armor
                     entity.setHeldItem(EnumHand.MAIN_HAND, recipe.getOutputStack.copy())
                     entity.setDropItemsWhenDead(true)
                     entity.setDropChance(EntityEquipmentSlot.MAINHAND, 1.0F)
                     entity.enablePersistence()
                     entity.setLocationAndAngles(getPos.getX + 0.5, getPos.getY + 1, getPos.getZ + 0.5, 0.0F, 0.0F)
-                    entity.attackEntityAsMob(worldObj.getClosestPlayer(getPos.getX, getPos.getY, getPos.getZ, 10.0, false))
-                    worldObj.spawnEntityInWorld(entity)
+                    entity.attackEntityAsMob(getWorld.getClosestPlayer(getPos.getX, getPos.getY, getPos.getZ, 10.0, false))
+                    getWorld.spawnEntityInWorld(entity)
                 }
                 setStackInSlot(0, null)
                 reset()
             }
-            worldObj.notifyBlockUpdate(getPos, worldObj.getBlockState(getPos), worldObj.getBlockState(getPos), 3)
+            getWorld.notifyBlockUpdate(getPos, getWorld.getBlockState(getPos), getWorld.getBlockState(getPos), 3)
         }
     }
 
@@ -116,10 +116,10 @@ class TileAltar extends UpdatingTile with Inventory {
         if(isWorking) {
             // Do item stuff
             for (x <- 0 until 2)
-                worldObj.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE,
-                    getPos.getX + (0.75 - (worldObj.rand.nextFloat() / 2)),
-                    getPos.getY + (1.75 - (worldObj.rand.nextFloat() / 2)),
-                    getPos.getZ + (0.75 - (worldObj.rand.nextFloat() / 2)),
+                getWorld.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE,
+                    getPos.getX + (0.75 - (getWorld.rand.nextFloat() / 2)),
+                    getPos.getY + (1.75 - (getWorld.rand.nextFloat() / 2)),
+                    getPos.getZ + (0.75 - (getWorld.rand.nextFloat() / 2)),
                     0,
                     0,
                     0)
@@ -130,7 +130,7 @@ class TileAltar extends UpdatingTile with Inventory {
                 // Current Progress
                 val radius = (chargeCount * 5) / currentRecipeDuration
                 for (x <- 0 until 360 by 10) {
-                    worldObj.spawnParticle(EnumParticleTypes.DRAGON_BREATH,
+                    getWorld.spawnParticle(EnumParticleTypes.DRAGON_BREATH,
                         (getPos.getX + 0.5) + (5 - radius) * Math.cos(Math.toRadians(x)),
                         getPos.getY,
                         (getPos.getZ + 0.5) + (5 - radius) * Math.sin(Math.toRadians(x)),
@@ -141,7 +141,7 @@ class TileAltar extends UpdatingTile with Inventory {
 
                 // Outer Ring
                 for (x <- 0 until 360 by 10) {
-                    worldObj.spawnParticle(paricle,
+                    getWorld.spawnParticle(paricle,
                         (getPos.getX + 0.5) + 5 * Math.cos(Math.toRadians(x)),
                         getPos.getY + 0.5,
                         (getPos.getZ + 0.5) + 5 * Math.sin(Math.toRadians(x)),
@@ -153,7 +153,7 @@ class TileAltar extends UpdatingTile with Inventory {
                 // Ring 4
                 if(radius >= 1)
                     for (x <- 0 until 360 by 10) {
-                        worldObj.spawnParticle(paricle,
+                        getWorld.spawnParticle(paricle,
                             (getPos.getX + 0.5) + 4 * Math.cos(Math.toRadians(x)),
                             getPos.getY + 0.5,
                             (getPos.getZ + 0.5) + 4 * Math.sin(Math.toRadians(x)),
@@ -166,7 +166,7 @@ class TileAltar extends UpdatingTile with Inventory {
                 // Ring 3
                 if(radius >= 2)
                     for (x <- 0 until 360 by 10) {
-                        worldObj.spawnParticle(paricle,
+                        getWorld.spawnParticle(paricle,
                             (getPos.getX + 0.5) + 3 * Math.cos(Math.toRadians(x)),
                             getPos.getY + 0.5,
                             (getPos.getZ + 0.5) + 3 * Math.sin(Math.toRadians(x)),
@@ -179,7 +179,7 @@ class TileAltar extends UpdatingTile with Inventory {
                 // Ring 2
                 if(radius >= 3)
                     for (x <- 0 until 360 by 10) {
-                        worldObj.spawnParticle(paricle,
+                        getWorld.spawnParticle(paricle,
                             (getPos.getX + 0.5) + 2 * Math.cos(Math.toRadians(x)),
                             getPos.getY + 0.5,
                             (getPos.getZ + 0.5) + 2 * Math.sin(Math.toRadians(x)),
@@ -192,7 +192,7 @@ class TileAltar extends UpdatingTile with Inventory {
                 // Ring 1
                 if(radius >= 4)
                     for (x <- 0 until 360 by 10) {
-                        worldObj.spawnParticle(paricle,
+                        getWorld.spawnParticle(paricle,
                             (getPos.getX + 0.5) + 1 * Math.cos(Math.toRadians(x)),
                             getPos.getY + 0.5,
                             (getPos.getZ + 0.5) + 1 * Math.sin(Math.toRadians(x)),
@@ -230,8 +230,6 @@ class TileAltar extends UpdatingTile with Inventory {
         chargeCount = tag.getFloat("charge")
         currentRecipeDuration = tag.getFloat("maxCharge")
         dayRecipe = tag.getBoolean("dayRecipe")
-        if (getStackInSlot(0) != null)
-            recipe = AltarRecipes.getRecipe(WorldStructure.getAlterType(worldObj, getPos), getStackInSlot(0))
         onInventoryChanged(0)
     }
 
