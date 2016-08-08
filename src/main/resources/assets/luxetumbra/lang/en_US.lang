@@ -2,7 +2,7 @@
 itemGroup.tabLuxEtUmbra=Lux et Umbra
 
 # Blocks
-tile.luxetumbra:blockAltar.name=Altar
+tile.luxetumbra:blockAltar.name=Power Altar
 
 # Items
 item.luxetumbra:spellLevelBook.name=Spell Level Book

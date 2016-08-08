@@ -62,6 +62,8 @@ object AltarRecipes {
         null
     }
 
-
+    def getRecipes: ArrayBuffer[AltarRecipe] = {
+        altarRecipes
+    }
 
 }

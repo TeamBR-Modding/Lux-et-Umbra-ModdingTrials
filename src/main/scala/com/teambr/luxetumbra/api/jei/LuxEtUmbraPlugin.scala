@@ -1,8 +1,7 @@
 package com.teambr.luxetumbra.api.jei
 
-import com.teambr.luxetumbra.managers.BlockManager
+import com.teambr.luxetumbra.api.jei.altar.{JEIAltarCategory, JEIAltarRecipeHandler, JEIAltarRecipeMaker}
 import mezz.jei.api._
-import net.minecraft.item.ItemStack
 
 /**
   * This file was created for Lux et Umbra
@@ -23,6 +22,11 @@ class LuxEtUmbraPlugin extends IModPlugin {
 
     override def register(registry: IModRegistry): Unit = {
         LuxEtUmbraPlugin.jeiHelpers = registry.getJeiHelpers
+
+        registry.addRecipeCategories(new JEIAltarCategory)
+        registry.addRecipeHandlers(new JEIAltarRecipeHandler)
+
+        registry.addRecipes(JEIAltarRecipeMaker.getRecipes)
 
         //BlackList
 
