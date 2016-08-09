@@ -1,4 +1,4 @@
-package com.teambr.luxetumbra.common.items
+package com.teambr.luxetumbra.common.items.stones
 
 import com.teambr.bookshelf.client.gui.{GuiColor, GuiTextFormat}
 import com.teambr.luxetumbra.LuxEtUmbra

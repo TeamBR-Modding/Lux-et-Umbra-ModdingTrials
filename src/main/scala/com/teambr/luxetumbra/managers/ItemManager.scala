@@ -1,6 +1,7 @@
 package com.teambr.luxetumbra.managers
 
 import com.teambr.luxetumbra.common.items._
+import com.teambr.luxetumbra.common.items.stones.{ItemFeedingStone, ItemFireStone, ItemFlightStone, ItemTeleporter}
 import com.teambr.luxetumbra.lib.Constants
 import net.minecraft.item.Item
 import net.minecraftforge.fml.common.registry.{GameRegistry, IForgeRegistryEntry}

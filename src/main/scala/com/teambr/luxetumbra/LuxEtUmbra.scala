@@ -67,7 +67,7 @@ object LuxEtUmbra {
         proxy.init()
         AltarRecipes.init()
         MinecraftForge.EVENT_BUS.register(TimeUtils)
-        MinecraftForge.EVENT_BUS.register(new PlayerEvents)
+        MinecraftForge.EVENT_BUS.register(PlayerEvents)
     }
 
     @EventHandler
