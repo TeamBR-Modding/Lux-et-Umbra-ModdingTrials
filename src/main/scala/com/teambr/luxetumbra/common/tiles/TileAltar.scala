@@ -39,6 +39,11 @@ class TileAltar extends UpdatingTile with Inventory {
     var dayRecipe = true
 
     override def onServerTick(): Unit = {
+        if (isWorking && getStackInSlot(0) == null) {
+            reset()
+            return
+        }
+
         if (!isWorking && getStackInSlot(0) != null) {
             recipe = AltarRecipes.getRecipe(WorldStructure.getAlterType(getWorld, getPos), getStackInSlot(0))
             if (recipe != null) {
@@ -80,7 +85,9 @@ class TileAltar extends UpdatingTile with Inventory {
                     entity.setDropChance(EntityEquipmentSlot.MAINHAND, 1.0F)
                     entity.enablePersistence()
                     entity.setLocationAndAngles(getPos.getX + 0.5, getPos.getY + 1, getPos.getZ + 0.5, 0.0F, 0.0F)
-                    entity.attackEntityAsMob(getWorld.getClosestPlayer(getPos.getX, getPos.getY, getPos.getZ, 10.0, false))
+                    val closestPlayer = getWorld.getClosestPlayer(getPos.getX, getPos.getY, getPos.getZ, 10.0, false)
+                    if (closestPlayer != null)
+                        entity.attackEntityAsMob(closestPlayer)
                     getWorld.spawnEntityInWorld(entity)
                 }
                 setStackInSlot(0, null)
