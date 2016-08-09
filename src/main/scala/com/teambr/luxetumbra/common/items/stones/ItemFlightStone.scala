@@ -1,9 +1,10 @@
-package com.teambr.luxetumbra.common.items
+package com.teambr.luxetumbra.common.items.stones
 
 import com.teambr.bookshelf.client.gui.{GuiColor, GuiTextFormat}
 import com.teambr.luxetumbra.LuxEtUmbra
 import com.teambr.luxetumbra.collections.CrystalType.crystalType
 import com.teambr.luxetumbra.common.items.traits.EnergyUserItem
+import com.teambr.luxetumbra.events.PlayerEvents
 import com.teambr.luxetumbra.lib.Constants
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
@@ -32,8 +33,7 @@ class ItemFlightStone extends EnergyUserItem {
     override def onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean): Unit = {
         entityIn match {
             case player: EntityPlayer if useEnergy(player, displayMessage = false, doSpellLevel = false) =>
-                if(!player.capabilities.allowFlying)
-                    player.capabilities.allowFlying = true
+                PlayerEvents.updateForPlayer(player)
             case _ =>
         }
     }

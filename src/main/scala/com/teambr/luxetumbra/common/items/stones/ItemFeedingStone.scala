@@ -1,4 +1,4 @@
-package com.teambr.luxetumbra.common.items
+package com.teambr.luxetumbra.common.items.stones
 
 import com.teambr.bookshelf.client.gui.{GuiColor, GuiTextFormat}
 import com.teambr.luxetumbra.LuxEtUmbra
@@ -11,7 +11,6 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
 import net.minecraft.util.SoundCategory
-import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.{Side, SideOnly}
 
