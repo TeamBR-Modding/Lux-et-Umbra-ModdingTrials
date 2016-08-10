@@ -1,5 +1,6 @@
 package com.teambr.luxetumbra.common.items.traits
 
+import com.teambr.bookshelf.client.gui.{GuiColor, GuiTextFormat}
 import com.teambr.luxetumbra.capabilities.player.SpellLevelCapability
 import com.teambr.luxetumbra.collections.CrystalType
 import com.teambr.luxetumbra.managers.ItemManager
@@ -7,6 +8,7 @@ import net.minecraft.client.resources.I18n
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.{Item, ItemStack}
 import net.minecraft.util.text.TextComponentTranslation
+import net.minecraftforge.fml.relauncher.{Side, SideOnly}
 
 /**
   * This file was created for Lux-et-Umbra
@@ -96,5 +98,17 @@ trait EnergyUserItem extends Item {
                 return i
         }
         -1
+    }
+
+    @SideOnly(Side.CLIENT)
+    override def addInformation(stack: ItemStack, player: EntityPlayer, list: java.util.List[String], boolean: Boolean): Unit = {
+        list.add(GuiTextFormat.ITALICS + "" + GuiColor.ORANGE + "Required Spell Level: " + MIN_SPELL_LEVEL)
+        var magicType = ""
+        MAGIC_TYPE match {
+            case CrystalType.crystalType.DAY => magicType = "Required Day Power: "
+            case CrystalType.crystalType.NIGHT => magicType = "Required Night Power: "
+
+        }
+        list.add(GuiTextFormat.ITALICS + "" + GuiColor.ORANGE + magicType + ENERGY_REQUIRED)
     }
 }

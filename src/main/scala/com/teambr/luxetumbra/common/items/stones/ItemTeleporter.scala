@@ -37,7 +37,9 @@ class ItemTeleporter extends EnergyUserItem {
         if (world.isRemote) return  new ActionResult(EnumActionResult.SUCCESS, stack)
         if (useEnergy(player)) {
             val tag = stack.getTagCompound
-            player.setPositionAndUpdate(tag.getInteger("X"), tag.getInteger("Y"), tag.getInteger("Z"))
+            if (tag.getInteger("Dim") == player.dimension)
+                player.setPositionAndUpdate(tag.getInteger("X"), tag.getInteger("Y"), tag.getInteger("Z"))
+            else player.addChatComponentMessage(new TextComponentTranslation("luxetumbra:teleporter.invaliddim"))
         }
 
         new ActionResult(EnumActionResult.SUCCESS, stack)
@@ -47,10 +49,13 @@ class ItemTeleporter extends EnergyUserItem {
                            facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult = {
         if (world.isRemote) return EnumActionResult.SUCCESS
         if (player.isSneaking) {
+            val telPos = pos.offset(facing)
             val nbt = new NBTTagCompound
-            nbt.setInteger("X", pos.getX)
-            nbt.setInteger("Y", pos.getY + 1)
-            nbt.setInteger("Z", pos.getZ)
+            nbt.setInteger("X", telPos.getX)
+            nbt.setInteger("Y", telPos.getY + 1)
+            nbt.setInteger("Z", telPos.getZ)
+            nbt.setInteger("Dim", player.dimension)
+            nbt.setString("DimName", world.provider.getDimensionType.getName)
             stack.setTagCompound(nbt)
             player.addChatComponentMessage(new TextComponentTranslation("luxetumbra:teleporter.locationset"))
         } else onItemRightClick(stack, world, player, hand)
@@ -66,7 +71,9 @@ class ItemTeleporter extends EnergyUserItem {
             list.add("     X: " + tag.getFloat("X").toInt)
             list.add("     Y: " + tag.getFloat("Y").toInt)
             list.add("     Z: " + tag.getFloat("Z").toInt)
+            list.add("   Dim: " + tag.getString("DimName"))
         }
-        list.add(GuiTextFormat.ITALICS + "" + GuiColor.ORANGE + "Required Spell Level: " + MIN_SPELL_LEVEL)
+        //list.add(GuiTextFormat.ITALICS + "" + GuiColor.ORANGE + "Required Spell Level: " + MIN_SPELL_LEVEL)
+        super.addInformation(stack, player, list, boolean)
     }
 }

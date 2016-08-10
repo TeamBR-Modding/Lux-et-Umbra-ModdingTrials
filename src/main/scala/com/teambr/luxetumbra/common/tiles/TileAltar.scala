@@ -39,7 +39,7 @@ class TileAltar extends UpdatingTile with Inventory {
     var dayRecipe = true
 
     override def onServerTick(): Unit = {
-        if (isWorking && getStackInSlot(0) == null) {
+        if ((isWorking && getStackInSlot(0) == null) || (isWorking && recipe == null)) {
             reset()
             return
         }
@@ -50,6 +50,7 @@ class TileAltar extends UpdatingTile with Inventory {
                 isWorking = true
                 altarSubType = recipe.getAltarSubType
                 altarType = WorldStructure.getAlterType(getWorld, getPos)
+                dayRecipe = recipe.getAltarType == EnumAlterType.DAY || recipe.getAltarSubType == EnumAlterSubType.DAY
             }
         } else if (isWorking && recipe != null) {
             if(TimeUtils.onSecond(10))
@@ -131,7 +132,7 @@ class TileAltar extends UpdatingTile with Inventory {
                     0,
                     0)
 
-            var paricle = if(dayRecipe) EnumParticleTypes.END_ROD else EnumParticleTypes.FLAME
+            val particle = if(dayRecipe) EnumParticleTypes.END_ROD else EnumParticleTypes.FLAME
             // Wave
             if(TimeUtils.onSecond(1)) {
                 // Current Progress
@@ -148,7 +149,7 @@ class TileAltar extends UpdatingTile with Inventory {
 
                 // Outer Ring
                 for (x <- 0 until 360 by 10) {
-                    getWorld.spawnParticle(paricle,
+                    getWorld.spawnParticle(particle,
                         (getPos.getX + 0.5) + 5 * Math.cos(Math.toRadians(x)),
                         getPos.getY + 0.5,
                         (getPos.getZ + 0.5) + 5 * Math.sin(Math.toRadians(x)),
@@ -160,7 +161,7 @@ class TileAltar extends UpdatingTile with Inventory {
                 // Ring 4
                 if(radius >= 1)
                     for (x <- 0 until 360 by 10) {
-                        getWorld.spawnParticle(paricle,
+                        getWorld.spawnParticle(particle,
                             (getPos.getX + 0.5) + 4 * Math.cos(Math.toRadians(x)),
                             getPos.getY + 0.5,
                             (getPos.getZ + 0.5) + 4 * Math.sin(Math.toRadians(x)),
@@ -173,7 +174,7 @@ class TileAltar extends UpdatingTile with Inventory {
                 // Ring 3
                 if(radius >= 2)
                     for (x <- 0 until 360 by 10) {
-                        getWorld.spawnParticle(paricle,
+                        getWorld.spawnParticle(particle,
                             (getPos.getX + 0.5) + 3 * Math.cos(Math.toRadians(x)),
                             getPos.getY + 0.5,
                             (getPos.getZ + 0.5) + 3 * Math.sin(Math.toRadians(x)),
@@ -186,7 +187,7 @@ class TileAltar extends UpdatingTile with Inventory {
                 // Ring 2
                 if(radius >= 3)
                     for (x <- 0 until 360 by 10) {
-                        getWorld.spawnParticle(paricle,
+                        getWorld.spawnParticle(particle,
                             (getPos.getX + 0.5) + 2 * Math.cos(Math.toRadians(x)),
                             getPos.getY + 0.5,
                             (getPos.getZ + 0.5) + 2 * Math.sin(Math.toRadians(x)),
@@ -199,7 +200,7 @@ class TileAltar extends UpdatingTile with Inventory {
                 // Ring 1
                 if(radius >= 4)
                     for (x <- 0 until 360 by 10) {
-                        getWorld.spawnParticle(paricle,
+                        getWorld.spawnParticle(particle,
                             (getPos.getX + 0.5) + 1 * Math.cos(Math.toRadians(x)),
                             getPos.getY + 0.5,
                             (getPos.getZ + 0.5) + 1 * Math.sin(Math.toRadians(x)),

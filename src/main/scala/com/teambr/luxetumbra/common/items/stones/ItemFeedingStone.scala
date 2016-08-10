@@ -58,7 +58,7 @@ class ItemFeedingStone extends EnergyUserItem {
     @SideOnly(Side.CLIENT)
     override def addInformation(stack: ItemStack, player: EntityPlayer, list: java.util.List[String], boolean: Boolean): Unit = {
         list.add("Automatically Feeds the Player")
-        list.add(GuiTextFormat.ITALICS + "" + GuiColor.ORANGE + "Required Spell Level: " + MIN_SPELL_LEVEL)
+        super.addInformation(stack, player, list, boolean)
     }
 
     override def onDroppedByPlayer(item: ItemStack, player: EntityPlayer): Boolean = {
