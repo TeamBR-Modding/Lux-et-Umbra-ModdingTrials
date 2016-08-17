@@ -9,6 +9,7 @@ import com.teambr.luxetumbra.common.CommonProxy
 import com.teambr.luxetumbra.events.{FlightEventTick, PlayerEvents}
 import com.teambr.luxetumbra.lib.Constants
 import com.teambr.luxetumbra.managers.{BlockManager, ConfigManager, CraftingRecipeManager, ItemManager}
+import com.teambr.luxetumbra.network.PacketDispatcher
 import com.teambr.luxetumbra.registries.AltarRecipes
 import com.teambr.luxetumbra.util.TimeUtils
 import net.minecraft.creativetab.CreativeTabs
@@ -68,6 +69,7 @@ object LuxEtUmbra {
         proxy.init()
         AltarRecipes.init()
         MinecraftForge.EVENT_BUS.register(TimeUtils)
+        PacketDispatcher.initPackets()
         MinecraftForge.EVENT_BUS.register(PlayerEvents)
     }
 

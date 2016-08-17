@@ -1,6 +1,7 @@
 package com.teambr.luxetumbra.capabilities.player;
 
 import com.teambr.luxetumbra.lib.Constants;
+import com.teambr.luxetumbra.managers.PlayerSpellLevelManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagList;
@@ -33,9 +34,9 @@ public class SpellLevelCapability {
     @CapabilityInject(ISpellLevelCapability.class)
     public static final Capability<ISpellLevelCapability> SPELL_LEVEL = null;
 
-    public static final EnumFacing DEFAULT_FACING = null;
+    private static final EnumFacing DEFAULT_FACING = null;
 
-    public static final ResourceLocation SPELLLEVEL = new ResourceLocation(Constants.MOD_ID(), "SpellLevelCapability");
+    private static final ResourceLocation SPELLLEVEL = new ResourceLocation(Constants.MOD_ID(), "SpellLevelCapability");
 
     public static void register() {
 
@@ -55,7 +56,7 @@ public class SpellLevelCapability {
         MinecraftForge.EVENT_BUS.register(new EventHandler());
     }
 
-    public static class EventHandler {
+    private static class EventHandler {
         @SubscribeEvent
         public void playerCreation(AttachCapabilitiesEvent.Entity event) {
             if (event.getEntity() instanceof EntityPlayer)
@@ -65,13 +66,14 @@ public class SpellLevelCapability {
         @SubscribeEvent
         public void playerClone(PlayerEvent.Clone event) {
             if (event.isWasDeath()) {
-                event.getEntityPlayer().getCapability(SpellLevelCapability.SPELL_LEVEL, null)
-                        .setSpellLevel(event.getOriginal().getCapability(SpellLevelCapability.SPELL_LEVEL, null).getSpellLevel());
+                PlayerSpellLevelManager.setPlayerSpellLevel(event.getEntityPlayer(), event.getOriginal().getCapability(SpellLevelCapability.SPELL_LEVEL, null).getSpellLevel());
+                /*event.getEntityPlayer().getCapability(SpellLevelCapability.SPELL_LEVEL, null)
+                        .setSpellLevel(event.getOriginal().getCapability(SpellLevelCapability.SPELL_LEVEL, null).getSpellLevel());*/
             }
         }
     }
 
-    public static class Provider implements ICapabilitySerializable<NBTTagList> {
+    private static class Provider implements ICapabilitySerializable<NBTTagList> {
 
         private ISpellLevelCapability spellLevelCapability = new SpellLevel();
 

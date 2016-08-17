@@ -1,7 +1,10 @@
 package com.teambr.luxetumbra.managers;
 
 import com.teambr.luxetumbra.capabilities.player.SpellLevelCapability;
+import com.teambr.luxetumbra.network.PacketDispatcher;
+import com.teambr.luxetumbra.network.UpdateSpellLevelPacket;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 
 /**
  * This file was created for Lux et Umbra
@@ -32,5 +35,17 @@ public class PlayerSpellLevelManager {
     public static void modifiyPlayerSpellLevel(EntityPlayer player, int amount) {
         player.getCapability(SpellLevelCapability.SPELL_LEVEL, null)
                 .setSpellLevel(player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).getSpellLevel() + amount);
+        PacketDispatcher.net.sendTo(new UpdateSpellLevelPacket(player, player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).getSpellLevel()), (EntityPlayerMP) player);
+    }
+
+    /**
+     * Set the player spell level
+     * @param player Player
+     * @param amount Spell level to set, can be positive or negative
+     */
+    public static void setPlayerSpellLevel(EntityPlayer player, int amount) {
+        player.getCapability(SpellLevelCapability.SPELL_LEVEL, null)
+                .setSpellLevel(amount);
+        PacketDispatcher.net.sendTo(new UpdateSpellLevelPacket(player, amount), (EntityPlayerMP) player);
     }
 }

@@ -1,6 +1,7 @@
 package com.teambr.luxetumbra.commands;
 
 import com.teambr.luxetumbra.capabilities.player.SpellLevelCapability;
+import com.teambr.luxetumbra.managers.PlayerSpellLevelManager;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -38,19 +39,19 @@ public class SetSpellLevel extends CommandBase {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        if (args.length != 3) throw new WrongUsageException("luxetumbra:commands.setspelllevel.usage");
+        if (args.length != 2) throw new WrongUsageException("luxetumbra:commands.setspelllevel.usage");
 
         EntityPlayer player = getPlayer(server, sender, args[0]);
 
-        int currentLevel = player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).getSpellLevel();
+        /*int currentLevel = player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).getSpellLevel();
 
         if (args[1].equalsIgnoreCase("add"))
             player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).setSpellLevel(currentLevel + Integer.parseInt(args[2]));
         else if (args[1].equalsIgnoreCase("subtract"))
             player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).setSpellLevel(currentLevel - Integer.parseInt(args[2]));
         else
-            throw new WrongUsageException("luxetumbra:commands.setspelllevel.usage");
-
+            throw new WrongUsageException("luxetumbra:commands.setspelllevel.usage");*/
+        PlayerSpellLevelManager.setPlayerSpellLevel(player, Integer.parseInt(args[1]));
 
         sender.addChatMessage(new TextComponentString(args[0] + "'s " + I18n.translateToLocal("luxetumbra:commands.setspelllevel.done") + " "
                 + player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).getSpellLevel()));

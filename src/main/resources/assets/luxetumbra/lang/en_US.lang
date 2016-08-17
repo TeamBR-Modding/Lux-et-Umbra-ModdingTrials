@@ -16,7 +16,7 @@ item.luxetumbra:fireStone.name=Stone of Fireballs
 item.luxetumbra:flightStone.name=Stone of Flight
 
 # Commands
-luxetumbra:commands.setspelllevel.usage=setSpellLevel <Player> Add/Subtract <Amount>
+luxetumbra:commands.setspelllevel.usage=setSpellLevel <Player> <Amount>
 luxetumbra:commands.setspelllevel.done=spell level is now
 
 # Misc
