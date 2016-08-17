@@ -5,7 +5,7 @@ import com.teambr.luxetumbra.client.renderers.tiles.AltarEntityRenderer
 import com.teambr.luxetumbra.common.CommonProxy
 import com.teambr.luxetumbra.common.items.{DummyDayTile, DummyNightTile, DummyTile, ItemEnergyShield}
 import com.teambr.luxetumbra.common.tiles.TileAltar
-import com.teambr.luxetumbra.events.PlayerEvents
+import com.teambr.luxetumbra.events.FlightEventTick
 import com.teambr.luxetumbra.lib.Constants
 import com.teambr.luxetumbra.managers.{BlockManager, ItemManager}
 import net.minecraftforge.client.ForgeHooksClient
@@ -41,7 +41,7 @@ class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(classOf[DummyNightTile], new ShieldRendererNight[DummyNightTile])
         ClientRegistry.bindTileEntitySpecialRenderer(classOf[TileAltar], new AltarEntityRenderer[TileAltar])
 
-        MinecraftForge.EVENT_BUS.register(PlayerEvents)
+        MinecraftForge.EVENT_BUS.register(FlightEventTick)
     }
 
     override def postInit(): Unit = { }

@@ -6,7 +6,7 @@ import com.teambr.luxetumbra.capabilities.player.SpellLevelCapability
 import com.teambr.luxetumbra.collections.WorldStructure
 import com.teambr.luxetumbra.commands.{DebugAlter, SetSpellLevel}
 import com.teambr.luxetumbra.common.CommonProxy
-import com.teambr.luxetumbra.events.PlayerEvents
+import com.teambr.luxetumbra.events.{FlightEventTick, PlayerEvents}
 import com.teambr.luxetumbra.lib.Constants
 import com.teambr.luxetumbra.managers.{BlockManager, ConfigManager, CraftingRecipeManager, ItemManager}
 import com.teambr.luxetumbra.registries.AltarRecipes
@@ -68,6 +68,7 @@ object LuxEtUmbra {
         proxy.init()
         AltarRecipes.init()
         MinecraftForge.EVENT_BUS.register(TimeUtils)
+        MinecraftForge.EVENT_BUS.register(PlayerEvents)
     }
 
     @EventHandler

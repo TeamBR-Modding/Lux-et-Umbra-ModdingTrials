@@ -4,7 +4,7 @@ import com.teambr.bookshelf.client.gui.{GuiColor, GuiTextFormat}
 import com.teambr.luxetumbra.LuxEtUmbra
 import com.teambr.luxetumbra.collections.CrystalType.crystalType
 import com.teambr.luxetumbra.common.items.traits.EnergyUserItem
-import com.teambr.luxetumbra.events.PlayerEvents
+import com.teambr.luxetumbra.events.FlightEventTick
 import com.teambr.luxetumbra.lib.Constants
 import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.entity.Entity
@@ -35,7 +35,7 @@ class ItemFlightStone extends EnergyUserItem {
         if(!worldIn.isRemote) return
         entityIn match {
             case player: EntityPlayerSP if useEnergy(entityIn.asInstanceOf[EntityPlayer], displayMessage = false, doSpellLevel = false) =>
-                PlayerEvents.updateForPlayer()
+                FlightEventTick.updateForPlayer()
             case _ =>
         }
     }
