@@ -92,6 +92,7 @@ trait EnergyUserItem extends Item {
         false
     }
 
+    // TODO: Fix Meh
     protected def findStackInInventory(player: EntityPlayer, stack: ItemStack): Int = {
         for (i <- player.inventory.mainInventory.indices) {
             if (player.inventory.getStackInSlot(i) != null && player.inventory.getStackInSlot(i).isItemEqualIgnoreDurability(stack))
