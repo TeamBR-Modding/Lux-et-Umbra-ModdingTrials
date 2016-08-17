@@ -6,6 +6,7 @@ import com.teambr.luxetumbra.collections.CrystalType.crystalType
 import com.teambr.luxetumbra.common.items.traits.EnergyUserItem
 import com.teambr.luxetumbra.events.PlayerEvents
 import com.teambr.luxetumbra.lib.Constants
+import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -31,9 +32,10 @@ class ItemFlightStone extends EnergyUserItem {
     setCreativeTab(LuxEtUmbra.luxEtUmbra)
 
     override def onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean): Unit = {
+        if(!worldIn.isRemote) return
         entityIn match {
-            case player: EntityPlayer if useEnergy(player, displayMessage = false, doSpellLevel = false) =>
-                PlayerEvents.updateForPlayer(player)
+            case player: EntityPlayerSP if useEnergy(entityIn.asInstanceOf[EntityPlayer], displayMessage = false, doSpellLevel = false) =>
+                PlayerEvents.updateForPlayer()
             case _ =>
         }
     }

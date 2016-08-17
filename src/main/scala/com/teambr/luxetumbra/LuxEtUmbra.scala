@@ -17,6 +17,7 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod.EventHandler
 import net.minecraftforge.fml.common.event.{FMLInitializationEvent, FMLPostInitializationEvent, FMLPreInitializationEvent, FMLServerStartingEvent}
 import net.minecraftforge.fml.common.{Mod, SidedProxy}
+import net.minecraftforge.fml.relauncher.Side
 import org.apache.logging.log4j.LogManager
 
 /**
@@ -67,7 +68,6 @@ object LuxEtUmbra {
         proxy.init()
         AltarRecipes.init()
         MinecraftForge.EVENT_BUS.register(TimeUtils)
-        MinecraftForge.EVENT_BUS.register(PlayerEvents)
     }
 
     @EventHandler

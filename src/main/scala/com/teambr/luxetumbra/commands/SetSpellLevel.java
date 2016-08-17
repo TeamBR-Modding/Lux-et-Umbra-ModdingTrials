@@ -51,6 +51,7 @@ public class SetSpellLevel extends CommandBase {
         else
             throw new WrongUsageException("luxetumbra:commands.setspelllevel.usage");
 
+
         sender.addChatMessage(new TextComponentString(args[0] + "'s " + I18n.translateToLocal("luxetumbra:commands.setspelllevel.done") + " "
                 + player.getCapability(SpellLevelCapability.SPELL_LEVEL, null).getSpellLevel()));
 

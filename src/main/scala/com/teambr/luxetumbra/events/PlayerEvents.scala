@@ -17,29 +17,27 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.{Phase, PlayerTickEvent
   */
 object PlayerEvents {
 
-    var resetTimer = new THashMap[EntityPlayer, Int]()
-    var lastResetValue = new THashMap[EntityPlayer, Int]()
+    var resetTimer = 20
+    var lastResetValue = 20
 
     @SubscribeEvent
     def onPlayerTick(event : PlayerTickEvent): Unit = {
-        if(resetTimer.containsKey(event.player)) {
             // Only run once a tick
             if (event.phase == Phase.START) {
-                if (lastResetValue.get(event.player) > -5 && resetTimer.get(event.player) <= 0) {
+                if (lastResetValue > -5 && resetTimer <= 0) {
                     event.player.capabilities.allowFlying = false
                     event.player.capabilities.isFlying = false
-                } else if(resetTimer.get(event.player) > 0) {
+                } else if(resetTimer > 0) {
                     event.player.capabilities.allowFlying = true
                 }
                 // Update Last number
-                lastResetValue.put(event.player, resetTimer.get(event.player))
-                resetTimer.put(event.player, resetTimer.get(event.player) - 1)
+                lastResetValue = resetTimer
+                resetTimer -= 1
             }
-        }
     }
 
-    def updateForPlayer(player : EntityPlayer): Unit = {
-        resetTimer.put(player, 20)
-        lastResetValue.put(player, 20)
+    def updateForPlayer(): Unit = {
+        resetTimer = 20
+        lastResetValue = 20
     }
 }
