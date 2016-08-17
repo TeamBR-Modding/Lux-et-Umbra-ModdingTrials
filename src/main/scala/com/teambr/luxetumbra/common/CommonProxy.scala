@@ -1,5 +1,8 @@
 package com.teambr.luxetumbra.common
 
+import com.teambr.luxetumbra.events.PlayerEvents
+import net.minecraftforge.common.MinecraftForge
+
 /**
   * This file was created for Lux et Umbra
   *
@@ -14,7 +17,9 @@ class CommonProxy {
 
     def preInit(): Unit = { }
 
-    def init(): Unit = { }
+    def init(): Unit = {
+        MinecraftForge.EVENT_BUS.register(PlayerEvents)
+    }
 
     def postInit(): Unit = { }
 

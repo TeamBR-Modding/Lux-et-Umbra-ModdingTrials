@@ -32,10 +32,12 @@ class ItemFlightStone extends EnergyUserItem {
     setCreativeTab(LuxEtUmbra.luxEtUmbra)
 
     override def onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean): Unit = {
-        if(!worldIn.isRemote) return
         entityIn match {
-            case player: EntityPlayerSP if useEnergy(entityIn.asInstanceOf[EntityPlayer], displayMessage = false, doSpellLevel = false) =>
-                FlightEventTick.updateForPlayer()
+            case player: EntityPlayer if useEnergy(entityIn.asInstanceOf[EntityPlayer], displayMessage = false, doSpellLevel = false) =>
+                if(!worldIn.isRemote)
+                    player.fallDistance = 0
+                else
+                    FlightEventTick.updateForPlayer()
             case _ =>
         }
     }

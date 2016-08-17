@@ -30,12 +30,12 @@ class UpdateSpellLevelPacket extends IMessage with IMessageHandler[UpdateSpellLe
         this.spellLevel = spellLevel
     }
     override def toBytes(buf: ByteBuf): Unit = {
-        buf.setInt(0, spellLevel)
+        buf.writeInt(spellLevel)
         ByteBufUtils.writeUTF8String(buf, playerName)
     }
 
     override def fromBytes(buf: ByteBuf): Unit = {
-        spellLevel = buf.getInt(0)
+        spellLevel = buf.readInt()
         playerName = ByteBufUtils.readUTF8String(buf)
     }
 

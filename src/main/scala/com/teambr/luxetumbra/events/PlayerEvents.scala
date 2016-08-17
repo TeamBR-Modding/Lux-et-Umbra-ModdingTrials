@@ -6,6 +6,7 @@ import net.minecraft.entity.passive.EntityAnimal
 import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.relauncher.SideOnly
 
 /**
   * This file was created for Lux et Umbra

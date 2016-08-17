@@ -70,7 +70,6 @@ object LuxEtUmbra {
         AltarRecipes.init()
         MinecraftForge.EVENT_BUS.register(TimeUtils)
         PacketDispatcher.initPackets()
-        MinecraftForge.EVENT_BUS.register(PlayerEvents)
     }
 
     @EventHandler
