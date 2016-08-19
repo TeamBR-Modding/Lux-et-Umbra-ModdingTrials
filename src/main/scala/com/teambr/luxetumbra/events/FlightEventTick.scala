@@ -17,8 +17,8 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.{Phase, PlayerTickEvent
   */
 object FlightEventTick {
 
-    var resetTimer = 20
-    var lastResetValue = 20
+    var resetTimer = -5
+    var lastResetValue = -5
 
     @SubscribeEvent
     def onPlayerTick(event : PlayerTickEvent): Unit = {
